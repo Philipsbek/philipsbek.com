@@ -17,6 +17,20 @@ const homeServices = services.slice(0, 4);
 <BaseLayout path="/">
   <!-- HERO -->
   <section class="hero">
+    <div class="hero__decor" aria-hidden="true">
+      <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="330" cy="150" r="150" stroke="var(--accent)" stroke-width="1.4" opacity="0.16" />
+        <circle cx="330" cy="150" r="112" stroke="var(--accent)" stroke-width="1.4" opacity="0.12" />
+        <circle cx="330" cy="150" r="74" stroke="var(--accent)" stroke-width="1.4" opacity="0.09" />
+        <g fill="var(--ink)" opacity="0.06">
+          {Array.from({ length: 6 }).map((_, r) =>
+            Array.from({ length: 6 }).map((_, c) => (
+              <circle cx={40 + c * 26} cy={40 + r * 26} r="2" />
+            ))
+          )}
+        </g>
+      </svg>
+    </div>
     <div class="container hero__inner">
       <div class="hero__content">
         <p class="eyebrow reveal">
@@ -165,14 +179,35 @@ const homeServices = services.slice(0, 4);
 <style>
   /* Hero */
   .hero {
+    position: relative;
+    overflow: hidden;
     padding-top: clamp(2.5rem, 6vw, 5rem);
     padding-bottom: clamp(2rem, 5vw, 3.5rem);
   }
+  .hero__decor {
+    position: absolute;
+    top: -70px;
+    right: -60px;
+    width: min(46vw, 460px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero__decor svg {
+    width: 100%;
+    height: auto;
+  }
   .hero__inner {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1.35fr 1fr;
     align-items: center;
     gap: clamp(2rem, 5vw, 4rem);
+  }
+  @media (max-width: 880px) {
+    .hero__decor {
+      display: none;
+    }
   }
   .hero__title {
     font-size: clamp(2.6rem, 6.2vw, 4.6rem);

@@ -1,5 +1,13 @@
 ---
 import Icon from './Icon.astro';
+import ThumbArt from './ThumbArt.astro';
+
+const artForCategory: Record<string, string> = {
+  'WordPress': 'site',
+  'E-Commerce': 'store',
+  'AI & Automation': 'automation',
+  'Landing Page': 'landing',
+};
 
 interface Project {
   slug: string;
@@ -20,6 +28,7 @@ interface Props {
 }
 const { project, delay = 0 } = Astro.props;
 const hasLink = project.url && project.url !== '#';
+const artKind = artForCategory[project.category] ?? 'default';
 ---
 <article
   class="project-card card reveal"
@@ -27,8 +36,8 @@ const hasLink = project.url && project.url !== '#';
   style={`--reveal-delay: ${delay}ms`}
 >
   <div class={`project-thumb project-thumb--${project.accent ?? 'a'}`} aria-hidden="true">
-    <span class="project-thumb__initial">{project.title.charAt(0)}</span>
     <span class="project-thumb__pattern"></span>
+    <ThumbArt kind={artKind} />
   </div>
 
   <div class="project-body">
@@ -87,19 +96,15 @@ const hasLink = project.url && project.url !== '#';
   .project-thumb--a { background: linear-gradient(135deg, #12203b, #24344f); }
   .project-thumb--b { background: linear-gradient(135deg, #2a1a12, #7a4327); }
   .project-thumb--c { background: linear-gradient(135deg, #10221d, #244b41); }
-  .project-thumb__initial {
-    font-family: var(--font-display);
-    font-size: 3.4rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.92);
-    z-index: 1;
-  }
   .project-thumb__pattern {
     position: absolute;
     inset: 0;
     background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
     background-size: 18px 18px;
     opacity: 0.5;
+  }
+  .project-card:hover :global(.thumb-art) {
+    transform: scale(1.03);
   }
   .project-body {
     display: flex;

@@ -1,0 +1,98 @@
+---
+/**
+ * On-brand line-art illustrations for project thumbnails.
+ * Abstract/iconographic (not screenshots) — white strokes that sit on the
+ * card's gradient. Pick the art with `kind` (mapped from project category).
+ */
+interface Props {
+  kind?: string;
+  class?: string;
+}
+const { kind = 'default', class: className = '' } = Astro.props;
+---
+<svg
+  class:list={['thumb-art', className]}
+  viewBox="0 0 320 200"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {kind === 'site' && (
+    <g>
+      <rect x="42" y="46" width="236" height="118" rx="11" stroke-width="3" opacity="0.9" />
+      <line x1="42" y1="72" x2="278" y2="72" stroke-width="2.5" opacity="0.6" />
+      <circle cx="58" cy="59" r="3.4" fill="currentColor" stroke="none" opacity="0.7" />
+      <circle cx="72" cy="59" r="3.4" fill="currentColor" stroke="none" opacity="0.5" />
+      <circle cx="86" cy="59" r="3.4" fill="currentColor" stroke="none" opacity="0.4" />
+      <rect x="56" y="86" width="56" height="64" rx="7" fill="currentColor" stroke="none" opacity="0.24" />
+      <line x1="128" y1="92" x2="262" y2="92" stroke-width="6" opacity="0.5" />
+      <line x1="128" y1="110" x2="242" y2="110" stroke-width="6" opacity="0.32" />
+      <line x1="128" y1="128" x2="256" y2="128" stroke-width="6" opacity="0.24" />
+      <line x1="128" y1="146" x2="214" y2="146" stroke-width="6" opacity="0.18" />
+    </g>
+  )}
+
+  {kind === 'store' && (
+    <g>
+      <path d="M104 80 h112 l9 78 a8 8 0 0 1 -8 9 h-114 a8 8 0 0 1 -8 -9 z" stroke-width="3" opacity="0.9" />
+      <path d="M138 84 v-7 a22 22 0 0 1 44 0 v7" stroke-width="3" opacity="0.65" />
+      <circle cx="160" cy="120" r="12" stroke-width="3" opacity="0.5" />
+      <path d="M154 120 l4 4 8 -9" stroke-width="2.6" opacity="0.7" />
+    </g>
+  )}
+
+  {kind === 'automation' && (
+    <g>
+      <line x1="92" y1="82" x2="214" y2="70" stroke-width="2.5" opacity="0.45" />
+      <line x1="98" y1="94" x2="162" y2="128" stroke-width="2.5" opacity="0.4" />
+      <line x1="212" y1="82" x2="180" y2="128" stroke-width="2.5" opacity="0.38" />
+      <line x1="90" y1="138" x2="152" y2="140" stroke-width="2.5" opacity="0.32" />
+      <circle cx="90" cy="80" r="15" stroke-width="3" opacity="0.9" />
+      <circle cx="220" cy="68" r="15" stroke-width="3" opacity="0.7" />
+      <circle cx="170" cy="140" r="15" stroke-width="3" opacity="0.6" />
+      <circle cx="78" cy="146" r="10" stroke-width="3" opacity="0.5" />
+      <circle cx="90" cy="80" r="4.5" fill="currentColor" stroke="none" opacity="0.85" />
+      <circle cx="220" cy="68" r="4.5" fill="currentColor" stroke="none" opacity="0.7" />
+      <circle cx="170" cy="140" r="4.5" fill="currentColor" stroke="none" opacity="0.6" />
+    </g>
+  )}
+
+  {kind === 'landing' && (
+    <g>
+      <rect x="106" y="34" width="108" height="132" rx="11" stroke-width="3" opacity="0.9" />
+      <line x1="124" y1="60" x2="196" y2="60" stroke-width="8" opacity="0.5" />
+      <line x1="124" y1="80" x2="184" y2="80" stroke-width="5" opacity="0.3" />
+      <line x1="124" y1="94" x2="192" y2="94" stroke-width="5" opacity="0.24" />
+      <rect x="124" y="116" width="68" height="22" rx="11" fill="currentColor" stroke="none" opacity="0.85" />
+    </g>
+  )}
+
+  {kind === 'default' && (
+    <g>
+      <circle cx="128" cy="100" r="44" stroke-width="3" opacity="0.85" />
+      <rect x="150" y="66" width="68" height="68" rx="12" stroke-width="3" opacity="0.55" />
+      <line x1="96" y1="150" x2="224" y2="150" stroke-width="5" opacity="0.3" />
+    </g>
+  )}
+</svg>
+
+<style>
+  .thumb-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    z-index: 1;
+    transform-origin: center;
+    transition: transform 0.4s var(--ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thumb-art {
+      transition: none;
+    }
+  }
+</style>
