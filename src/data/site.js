@@ -30,9 +30,10 @@ export const contact = {
   location: 'Kuala Lumpur & Selangor, Malaysia',
 };
 
+// Only socials with `ready: true` are shown. To add LinkedIn, set a real `url`
+// and flip `ready` to true.
 export const socials = [
-  // PLACEHOLDER: replace `#` with your real profile URLs, then set `ready: true`.
-  { label: 'GitHub', short: 'GitHub', url: '#', ready: false, handle: 'github.com/your-handle' },
+  { label: 'GitHub', short: 'GitHub', url: 'https://github.com/Philipsbek', ready: true, handle: 'github.com/Philipsbek' },
   { label: 'LinkedIn', short: 'LinkedIn', url: '#', ready: false, handle: 'linkedin.com/in/your-handle' },
   { label: 'WhatsApp', short: 'WhatsApp', url: 'https://wa.me/60179812010', ready: true, handle: '+60 17-981 2010' },
   { label: 'Email', short: 'Email', url: 'mailto:philipsbekwork@gmail.com', ready: true, handle: 'philipsbekwork@gmail.com' },
@@ -314,4 +315,5 @@ export const aiPrinciples = [
 ];
 
 // Path to a downloadable résumé. Drop a real file at /public/philips-bek-resume.pdf.
-export const resumeUrl = '/philips-bek-resume.pdf'; // PLACEHOLDER: add the PDF file to /public
+// Downloadable résumé — the file lives at public/philips-bek-resume.pdf.
+export const resumeUrl = '/philips-bek-resume.pdf';

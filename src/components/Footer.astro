@@ -52,15 +52,14 @@ const iconFor: Record<string, string> = {
         <div class="footer-col">
           <h2 class="footer-col__title">Elsewhere</h2>
           <ul class="footer-socials">
-            {socials.map((s) => (
+            {socials.filter((s) => s.ready).map((s) => (
               <li>
                 <a
                   href={s.url}
                   target={s.url.startsWith('http') ? '_blank' : undefined}
                   rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  aria-disabled={s.ready ? undefined : 'true'}
-                  class:list={['footer-social', { 'is-pending': !s.ready }]}
-                  title={s.ready ? s.handle : `${s.label} — link coming soon`}
+                  class="footer-social"
+                  title={s.handle}
                 >
                   <Icon name={iconFor[s.short] || 'external'} />
                   <span>{s.label}</span>
@@ -155,10 +154,6 @@ const iconFor: Record<string, string> = {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-  }
-  .footer-social.is-pending {
-    color: var(--on-navy-muted);
-    cursor: not-allowed;
   }
 
   .footer-bottom {

@@ -29,7 +29,6 @@ const hasLink = project.url && project.url !== '#';
   <div class={`project-thumb project-thumb--${project.accent ?? 'a'}`} aria-hidden="true">
     <span class="project-thumb__initial">{project.title.charAt(0)}</span>
     <span class="project-thumb__pattern"></span>
-    {project.placeholder && <span class="project-thumb__badge">Sample · replace</span>}
   </div>
 
   <div class="project-body">
@@ -55,15 +54,13 @@ const hasLink = project.url && project.url !== '#';
       {project.tools.map((t) => <li class="tag">{t}</li>)}
     </ul>
 
-    <div class="project-foot">
-      {hasLink ? (
+    {hasLink && (
+      <div class="project-foot">
         <a class="link-arrow" href={project.url} target="_blank" rel="noopener noreferrer">
           Visit site <Icon name="arrow-up-right" />
         </a>
-      ) : (
-        <span class="project-foot__note">Live link coming soon</span>
-      )}
-    </div>
+      </div>
+    )}
   </div>
 </article>
 
@@ -104,23 +101,6 @@ const hasLink = project.url && project.url !== '#';
     background-size: 18px 18px;
     opacity: 0.5;
   }
-  .project-thumb__badge {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    z-index: 2;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    backdrop-filter: blur(2px);
-  }
-
   .project-body {
     display: flex;
     flex-direction: column;
@@ -176,10 +156,5 @@ const hasLink = project.url && project.url !== '#';
   .project-foot {
     margin-top: auto;
     padding-top: 0.4rem;
-  }
-  .project-foot__note {
-    font-size: 0.88rem;
-    color: var(--muted);
-    font-style: italic;
   }
 </style>

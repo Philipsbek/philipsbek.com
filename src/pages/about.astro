@@ -58,7 +58,6 @@ import {
           <a href={resumeUrl} class="btn btn--primary snapshot__btn" download>
             <Icon name="download" /> Download résumé
           </a>
-          <p class="snapshot__note">Résumé PDF — replace <code>/public/philips-bek-resume.pdf</code> with your file.</p>
         </div>
       </aside>
     </div>
@@ -137,29 +136,25 @@ import {
           ))}
         </ul>
 
-        <div class="mini-block">
-          <h3 class="mini-block__title">Certifications</h3>
-          {certifications.length ? (
+        {certifications.length > 0 && (
+          <div class="mini-block">
+            <h3 class="mini-block__title">Certifications</h3>
             <ul class="edu-list">
               {certifications.map((c) => (
                 <li class="edu-item"><h3 class="edu-item__school">{c.name}</h3><p class="muted">{c.issuer} · {c.year}</p></li>
               ))}
             </ul>
-          ) : (
-            <p class="placeholder-note">No certifications listed yet — add them in <code>src/data/site.js</code>.</p>
-          )}
-        </div>
+          </div>
+        )}
 
-        <div class="mini-block">
-          <h3 class="mini-block__title">Languages</h3>
-          {languages.length ? (
+        {languages.length > 0 && (
+          <div class="mini-block">
+            <h3 class="mini-block__title">Languages</h3>
             <ul class="lang-list">
               {languages.map((l) => <li class="tag">{l.name}{l.level ? ` · ${l.level}` : ''}</li>)}
             </ul>
-          ) : (
-            <p class="placeholder-note">Add your spoken languages in <code>src/data/site.js</code>.</p>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div class="reveal" style="--reveal-delay: 100ms">
@@ -225,11 +220,6 @@ import {
   .snapshot__btn {
     width: 100%;
     margin-top: 1.5rem;
-  }
-  .snapshot__note {
-    margin-top: 0.85rem;
-    font-size: 0.78rem;
-    color: var(--muted);
   }
   code {
     font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
@@ -384,14 +374,6 @@ import {
   .mini-block__title {
     font-size: 1.05rem;
     margin-bottom: 0.85rem;
-  }
-  .placeholder-note {
-    font-size: 0.9rem;
-    color: var(--muted);
-    background: var(--accent-soft);
-    border: 1px dashed var(--line-strong);
-    border-radius: 10px;
-    padding: 0.85rem 1rem;
   }
   .lang-list {
     display: flex;

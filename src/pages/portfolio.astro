@@ -15,16 +15,11 @@ const showFilters = projects.length >= 4;
   <PageHeader
     eyebrow="Portfolio"
     title="Selected projects & builds."
-    intro="A look at the kinds of work I do. The cards below are sample templates based on my real experience — I’m updating them with live project write-ups."
+    intro="A look at the websites, online stores and automations I build — from WordPress and WooCommerce to AI-powered WhatsApp chatbots."
   />
 
   <section class="section section--tight">
     <div class="container">
-      <div class="portfolio-note reveal">
-        <strong>Note:</strong> these are clearly-marked sample cards reflecting my actual experience.
-        Real client screenshots and links are being added — nothing here is a fabricated result.
-      </div>
-
       {showFilters && (
         <div class="filters reveal" role="tablist" aria-label="Filter projects by category">
           {projectCategories.map((cat, i) => (
@@ -54,19 +49,6 @@ const showFilters = projects.length >= 4;
 </BaseLayout>
 
 <style>
-  .portfolio-note {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    background: var(--accent-soft);
-    border: 1px dashed var(--line-strong);
-    border-radius: 12px;
-    padding: 0.9rem 1.1rem;
-    margin-bottom: 2rem;
-  }
-  .portfolio-note strong {
-    color: var(--accent);
-  }
-
   .filters {
     display: flex;
     flex-wrap: wrap;

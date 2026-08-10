@@ -110,21 +110,19 @@ const iconFor: Record<string, string> = {
         <div class="contact-block reveal" style="--reveal-delay: 200ms">
           <h2 class="contact-block__title">Elsewhere</h2>
           <div class="contact-socials">
-            {socials.map((s) => (
+            {socials.filter((s) => s.ready).map((s) => (
               <a
                 href={s.url}
                 target={s.url.startsWith('http') ? '_blank' : undefined}
                 rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                class:list={['contact-social', { 'is-pending': !s.ready }]}
-                title={s.ready ? s.handle : `${s.label} link coming soon`}
-                aria-disabled={s.ready ? undefined : 'true'}
+                class="contact-social"
+                title={s.handle}
               >
                 <Icon name={iconFor[s.short] || 'external'} />
                 <span>{s.label}</span>
               </a>
             ))}
           </div>
-          <p class="placeholder-tip">Add your GitHub &amp; LinkedIn URLs in <code>src/data/site.js</code> to activate those links.</p>
         </div>
       </aside>
     </div>
@@ -322,27 +320,9 @@ const iconFor: Record<string, string> = {
     border-radius: 999px;
     transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
   }
-  .contact-social:not(.is-pending):hover {
+  .contact-social:hover {
     border-color: var(--accent);
     color: var(--accent);
-  }
-  .contact-social.is-pending {
-    color: var(--muted);
-    cursor: not-allowed;
-    opacity: 0.75;
-  }
-  .placeholder-tip {
-    margin-top: 0.9rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-  code {
-    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
-    font-size: 0.85em;
-    background: var(--paper-2);
-    padding: 0.1em 0.35em;
-    border-radius: 5px;
-    border: 1px solid var(--line);
   }
 
   @media (max-width: 860px) {
