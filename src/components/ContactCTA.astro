@@ -1,0 +1,87 @@
+---
+import Icon from './Icon.astro';
+import { site, contact } from '../data/site.js';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+const {
+  heading = "Let's build something worth launching",
+  text = 'Have a website, store or automation in mind? Tell me what you need and I’ll get back to you.',
+} = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <div class="cta-panel dark-panel reveal">
+      <div class="cta-panel__glow" aria-hidden="true"></div>
+      <div class="cta-panel__content">
+        <p class="eyebrow" style="color: var(--accent);">Get in touch</p>
+        <h2 class="h2">{heading}</h2>
+        <p>{text}</p>
+        <div class="cta-panel__actions">
+          <a href="/contact" class="btn btn--light">
+            Contact me <Icon name="arrow-right" />
+          </a>
+          <a href={`mailto:${contact.email}`} class="btn btn--on-navy">
+            <Icon name="mail" /> {contact.email}
+          </a>
+        </div>
+        <p class="cta-panel__avail">{site.availability}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: clamp(18px, 3vw, 28px);
+    padding: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .cta-panel__glow {
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(191, 76, 38, 0.4), transparent 65%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .cta-panel__content {
+    position: relative;
+    max-width: 40rem;
+  }
+  .cta-panel__content .h2 {
+    margin: 0.75rem 0 1rem;
+    max-width: 18ch;
+  }
+  .cta-panel__content > p {
+    color: var(--on-navy-muted);
+    font-size: 1.05rem;
+  }
+  .cta-panel__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+  }
+  .cta-panel__avail {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--on-navy-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .cta-panel__avail::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.2);
+  }
+</style>

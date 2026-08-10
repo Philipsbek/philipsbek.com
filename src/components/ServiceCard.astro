@@ -1,0 +1,97 @@
+---
+import Icon from './Icon.astro';
+
+interface Service {
+  icon: string;
+  title: string;
+  blurb: string;
+  points: string[];
+}
+interface Props {
+  service: Service;
+  index?: number;
+  delay?: number;
+}
+const { service, index, delay = 0 } = Astro.props;
+---
+<article class="service-card card reveal" style={`--reveal-delay: ${delay}ms`}>
+  <div class="service-card__top">
+    <span class="service-icon">
+      <Icon name={service.icon} />
+    </span>
+    {index != null && <span class="service-num">{String(index).padStart(2, '0')}</span>}
+  </div>
+  <h3 class="h3 service-title">{service.title}</h3>
+  <p class="service-blurb">{service.blurb}</p>
+  <ul class="service-points">
+    {service.points.map((p) => (
+      <li>
+        <Icon name="check" class="icon-check" />
+        <span>{p}</span>
+      </li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  .service-card {
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    height: 100%;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--line-strong);
+  }
+  .service-card:hover .service-icon {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .service-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .service-icon {
+    --icon-size: 22px;
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--line);
+    transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--line-strong);
+  }
+  .service-title {
+    margin-top: 0.25rem;
+  }
+  .service-blurb {
+    color: var(--muted);
+    font-size: 0.96rem;
+  }
+  .service-points {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.25rem;
+  }
+  .service-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+</style>

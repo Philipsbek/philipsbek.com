@@ -1,0 +1,32 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+}
+const { eyebrow, title, intro } = Astro.props;
+---
+<section class="page-header">
+  <div class="container">
+    <p class="eyebrow reveal">{eyebrow}</p>
+    <h1 class="display page-header__title reveal" style="--reveal-delay: 60ms">{title}</h1>
+    {intro && (
+      <p class="lead page-header__intro reveal" style="--reveal-delay: 120ms">{intro}</p>
+    )}
+  </div>
+</section>
+
+<style>
+  .page-header {
+    padding-top: clamp(3rem, 7vw, 5.5rem);
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .page-header__title {
+    margin-top: 1rem;
+    max-width: 16ch;
+  }
+  .page-header__intro {
+    margin-top: 1.5rem;
+    max-width: 52ch;
+  }
+</style>

@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { projects, projectCategories } from '../data/site.js';
+
+const showFilters = projects.length >= 4;
+---
+<BaseLayout
+  title="Portfolio"
+  path="/portfolio"
+  description="Selected projects by Philips Bek — WordPress sites, WooCommerce stores, landing pages and AI-powered WhatsApp chatbots."
+>
+  <PageHeader
+    eyebrow="Portfolio"
+    title="Selected projects & builds."
+    intro="A look at the kinds of work I do. The cards below are sample templates based on my real experience — I’m updating them with live project write-ups."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="portfolio-note reveal">
+        <strong>Note:</strong> these are clearly-marked sample cards reflecting my actual experience.
+        Real client screenshots and links are being added — nothing here is a fabricated result.
+      </div>
+
+      {showFilters && (
+        <div class="filters reveal" role="tablist" aria-label="Filter projects by category">
+          {projectCategories.map((cat, i) => (
+            <button
+              class:list={['filter-btn', { 'is-active': i === 0 }]}
+              data-filter={cat}
+              role="tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div class="grid grid-3" data-project-grid>
+        {projects.map((p, i) => (
+          <ProjectCard project={p} delay={i * 80} />
+        ))}
+      </div>
+
+      <p class="no-results" data-no-results hidden>No projects in this category yet.</p>
+    </div>
+  </section>
+
+  <ContactCTA heading="Want to be my next project?" text="If you like how I work, let’s talk about your website, store or automation." />
+</BaseLayout>
+
+<style>
+  .portfolio-note {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    background: var(--accent-soft);
+    border: 1px dashed var(--line-strong);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 2rem;
+  }
+  .portfolio-note strong {
+    color: var(--accent);
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .filter-btn {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: all 0.2s var(--ease);
+  }
+  .filter-btn:hover {
+    border-color: var(--ink);
+  }
+  .filter-btn.is-active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--muted);
+    padding: 3rem 0;
+  }
+
+  /* Hidden by filter */
+  :global(.project-card.is-hidden) {
+    display: none;
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('[data-project-grid] .project-card');
+  const noResults = document.querySelector<HTMLElement>('[data-no-results]');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      buttons.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', String(active));
+      });
+
+      let visible = 0;
+      cards.forEach((card) => {
+        const match = filter === 'All' || card.dataset.category === filter;
+        card.classList.toggle('is-hidden', !match);
+        if (match) visible++;
+      });
+      if (noResults) noResults.hidden = visible !== 0;
+    });
+  });
+</script>

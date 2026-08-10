@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Icon from '../components/Icon.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { services } from '../data/site.js';
+
+const process = [
+  { title: 'Discovery', body: 'We talk through your goals, audience and must-haves so the build is aimed at the right outcome.' },
+  { title: 'Design & build', body: 'I design the layout and build it out — responsive, fast and easy for you to manage later.' },
+  { title: 'Optimize', body: 'Hosting, domain, DNS and SEO are set up and tuned so the site loads well and can be found.' },
+  { title: 'Launch & support', body: 'We go live, check everything works, and I stay on hand for updates and improvements.' },
+];
+---
+<BaseLayout
+  title="Services"
+  path="/services"
+  description="Web design & development, WordPress & Elementor, WooCommerce stores, SEO, workflow automation and hosting — services by Philips Bek."
+>
+  <PageHeader
+    eyebrow="Services"
+    title="Everything your website needs, in one place."
+    intro="From the first design to hosting, SEO and the automation running behind the scenes — here’s how I can help bring your project to life."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="grid grid-3">
+        {services.map((s, i) => (
+          <ServiceCard service={s} index={i + 1} delay={i * 70} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section process-band">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">How it works</p>
+        <h2 class="h2">A simple, transparent process</h2>
+        <p>No jargon and no surprises — a clear path from first conversation to a live website.</p>
+      </div>
+      <ol class="process-grid">
+        {process.map((step, i) => (
+          <li class="process-step reveal" style={`--reveal-delay:${i * 80}ms`}>
+            <span class="process-step__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="h3">{step.title}</h3>
+            <p class="muted">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Honest note + FAQ-ish -->
+  <section class="section">
+    <div class="container services-note">
+      <div class="reveal">
+        <p class="eyebrow">Good to know</p>
+        <h2 class="h2 services-note__title">Straightforward, honest work</h2>
+      </div>
+      <div class="services-note__items">
+        <div class="note-item reveal">
+          <Icon name="check" class="icon-chip" />
+          <div>
+            <h3 class="h3">Only what I can genuinely deliver</h3>
+            <p class="muted">Every service here maps to work I actually do. If something is outside my wheelhouse, I’ll tell you honestly and point you in the right direction.</p>
+          </div>
+        </div>
+        <div class="note-item reveal" style="--reveal-delay:70ms">
+          <Icon name="check" class="icon-chip" />
+          <div>
+            <h3 class="h3">Built to be handed over</h3>
+            <p class="muted">I set things up so you (or your team) can keep updating content without needing a developer for every small change.</p>
+          </div>
+        </div>
+        <div class="note-item reveal" style="--reveal-delay:140ms">
+          <Icon name="check" class="icon-chip" />
+          <div>
+            <h3 class="h3">Scope and pricing up front</h3>
+            <p class="muted">We agree on what’s included before work starts, so you always know what you’re getting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA heading="Not sure which service fits?" text="Tell me a bit about your project and I’ll suggest the best way forward — no obligation." />
+</BaseLayout>
+
+<style>
+  .process-band {
+    background: var(--paper-2);
+    border-block: 1px solid var(--line);
+  }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+    counter-reset: step;
+  }
+  .process-step {
+    position: relative;
+    padding: 1.75rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .process-step__num {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .process-step h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .services-note {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .services-note__title {
+    margin-top: 0.75rem;
+  }
+  .services-note__items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .note-item {
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .note-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .note-item h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+  }
+
+  @media (max-width: 900px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 760px) {
+    .services-note {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

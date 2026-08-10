@@ -1,0 +1,437 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import { site, contact, socials } from '../data/site.js';
+
+const iconFor: Record<string, string> = {
+  GitHub: 'github',
+  LinkedIn: 'linkedin',
+  WhatsApp: 'whatsapp',
+  Email: 'mail',
+};
+---
+<BaseLayout
+  title="Contact"
+  path="/contact"
+  description="Get in touch with Philips Bek — web & WordPress developer in Kuala Lumpur. Available for freelance projects and full-time roles."
+>
+  <PageHeader
+    eyebrow="Contact"
+    title="Let’s talk about your project."
+    intro="Whether it’s a new website, an online store, or an automation you’ve been meaning to set up — tell me what you have in mind and I’ll get back to you."
+  />
+
+  <section class="section section--tight">
+    <div class="container contact-grid">
+      <!-- Form -->
+      <div class="contact-form-wrap reveal">
+        <form class="contact-form card" novalidate data-contact-form>
+          <div class="field">
+            <label for="name">Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="name" autocomplete="name" required aria-required="true" />
+            <p class="field__error" data-error-for="name" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="email">Email <span aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" required aria-required="true" />
+            <p class="field__error" data-error-for="email" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject <span aria-hidden="true">*</span></label>
+            <input type="text" id="subject" name="subject" required aria-required="true" />
+            <p class="field__error" data-error-for="subject" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="message">Message <span aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" rows="6" required aria-required="true"></textarea>
+            <p class="field__error" data-error-for="message" role="alert"></p>
+          </div>
+
+          <button type="submit" class="btn btn--primary contact-form__submit">
+            Send message <Icon name="arrow-right" />
+          </button>
+
+          <p class="form-status" data-form-status role="status" aria-live="polite" hidden></p>
+
+          <p class="form-disclaimer">
+            <Icon name="mail" />
+            This form has no server backend, so it opens your email app with the message
+            pre-filled — nothing is sent silently. You can also email me directly at
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+          </p>
+        </form>
+      </div>
+
+      <!-- Details -->
+      <aside class="contact-aside">
+        <div class="contact-block reveal" style="--reveal-delay: 60ms">
+          <h2 class="contact-block__title">Reach me directly</h2>
+          <ul class="contact-methods">
+            <li>
+              <span class="contact-method__icon"><Icon name="mail" /></span>
+              <div>
+                <span class="contact-method__label">Email</span>
+                <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              </div>
+            </li>
+            <li>
+              <span class="contact-method__icon"><Icon name="whatsapp" /></span>
+              <div>
+                <span class="contact-method__label">WhatsApp</span>
+                <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer">{contact.phoneDisplay}</a>
+              </div>
+            </li>
+            <li>
+              <span class="contact-method__icon"><Icon name="pin" /></span>
+              <div>
+                <span class="contact-method__label">Based in</span>
+                <span>{contact.location}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-block reveal" style="--reveal-delay: 130ms">
+          <h2 class="contact-block__title">Availability</h2>
+          <p class="availability">
+            <span class="availability__dot"></span>
+            {site.availability}
+          </p>
+          <p class="muted contact-availability-note">
+            Best fit: business websites, WordPress &amp; WooCommerce builds, landing pages, and
+            automation or chatbot projects.
+          </p>
+        </div>
+
+        <div class="contact-block reveal" style="--reveal-delay: 200ms">
+          <h2 class="contact-block__title">Elsewhere</h2>
+          <div class="contact-socials">
+            {socials.map((s) => (
+              <a
+                href={s.url}
+                target={s.url.startsWith('http') ? '_blank' : undefined}
+                rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class:list={['contact-social', { 'is-pending': !s.ready }]}
+                title={s.ready ? s.handle : `${s.label} link coming soon`}
+                aria-disabled={s.ready ? undefined : 'true'}
+              >
+                <Icon name={iconFor[s.short] || 'external'} />
+                <span>{s.label}</span>
+              </a>
+            ))}
+          </div>
+          <p class="placeholder-tip">Add your GitHub &amp; LinkedIn URLs in <code>src/data/site.js</code> to activate those links.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .contact-form {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .field label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .field label span {
+    color: var(--accent);
+  }
+  .field input,
+  .field textarea {
+    font: inherit;
+    font-size: 0.98rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    width: 100%;
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .field.has-error input,
+  .field.has-error textarea {
+    border-color: #c0392b;
+  }
+  .field.has-error input:focus,
+  .field.has-error textarea:focus {
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+  }
+  .field__error {
+    font-size: 0.82rem;
+    color: #c0392b;
+    min-height: 0;
+  }
+  .field__error:empty {
+    display: none;
+  }
+
+  .contact-form__submit {
+    align-self: flex-start;
+    margin-top: 0.25rem;
+  }
+
+  .form-status {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  .form-status[data-state='success'] {
+    background: #e7f6ec;
+    color: #1c7a3f;
+    border: 1px solid #b7e2c5;
+  }
+  .form-status[data-state='error'] {
+    background: #fdECEA;
+    color: #b0362a;
+    border: 1px solid #f2c4bd;
+  }
+
+  .form-disclaimer {
+    --icon-size: 17px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  /* :global() so it reaches the SVG rendered by the Icon component. */
+  .form-disclaimer :global(.icon) {
+    color: var(--accent);
+    margin-top: 0.15rem;
+  }
+  .form-disclaimer a {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* Aside */
+  .contact-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .contact-block__title {
+    font-size: 1.15rem;
+    margin-bottom: 1.1rem;
+  }
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .contact-methods li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .contact-method__icon {
+    --icon-size: 19px;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .contact-method__label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .contact-methods a,
+  .contact-methods div > span:last-child {
+    font-weight: 500;
+    font-size: 0.98rem;
+  }
+  .contact-methods a:hover {
+    color: var(--accent);
+  }
+
+  .availability {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 500;
+  }
+  .availability__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #16a34a;
+    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.16);
+    flex-shrink: 0;
+  }
+  .contact-availability-note {
+    margin-top: 0.75rem;
+    font-size: 0.92rem;
+  }
+
+  .contact-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .contact-social {
+    --icon-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .contact-social:not(.is-pending):hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .contact-social.is-pending {
+    color: var(--muted);
+    cursor: not-allowed;
+    opacity: 0.75;
+  }
+  .placeholder-tip {
+    margin-top: 0.9rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  code {
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-size: 0.85em;
+    background: var(--paper-2);
+    padding: 0.1em 0.35em;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+  }
+
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const status = document.querySelector<HTMLElement>('[data-form-status]');
+  const CONTACT_EMAIL = 'philipsbekwork@gmail.com';
+
+  if (form) {
+    const fields = ['name', 'email', 'subject', 'message'] as const;
+
+    const setError = (name: string, msg: string) => {
+      const field = form.querySelector(`#${name}`)?.closest('.field');
+      const errEl = form.querySelector(`[data-error-for="${name}"]`);
+      field?.classList.toggle('has-error', Boolean(msg));
+      if (errEl) errEl.textContent = msg;
+      const input = form.querySelector(`#${name}`);
+      if (input) input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    };
+
+    const validateField = (name: string): boolean => {
+      const input = form.querySelector<HTMLInputElement | HTMLTextAreaElement>(`#${name}`);
+      if (!input) return true;
+      const value = input.value.trim();
+      if (!value) {
+        setError(name, 'This field is required.');
+        return false;
+      }
+      if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setError(name, 'Please enter a valid email address.');
+        return false;
+      }
+      if (name === 'message' && value.length < 10) {
+        setError(name, 'Please add a little more detail (at least 10 characters).');
+        return false;
+      }
+      setError(name, '');
+      return true;
+    };
+
+    // Live-clear errors as the user fixes them.
+    fields.forEach((name) => {
+      const input = form.querySelector(`#${name}`);
+      input?.addEventListener('input', () => {
+        const field = input.closest('.field');
+        if (field?.classList.contains('has-error')) validateField(name);
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (status) status.hidden = true;
+
+      const results = fields.map((f) => validateField(f));
+      const valid = results.every(Boolean);
+
+      if (!valid) {
+        if (status) {
+          status.hidden = false;
+          status.dataset.state = 'error';
+          status.textContent = 'Please fix the highlighted fields and try again.';
+        }
+        const firstError = form.querySelector('.field.has-error input, .field.has-error textarea');
+        (firstError as HTMLElement | null)?.focus();
+        return;
+      }
+
+      // No backend: build a mailto so the user's own mail app sends it.
+      const data = new FormData(form);
+      const name = String(data.get('name'));
+      const email = String(data.get('email'));
+      const subject = String(data.get('subject'));
+      const message = String(data.get('message'));
+      const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+      const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      if (status) {
+        status.hidden = false;
+        status.dataset.state = 'success';
+        status.textContent =
+          'Thanks! Your email app is opening with the message ready to send. If it doesn’t, email me directly.';
+      }
+      window.location.href = mailto;
+    });
+  }
+</script>

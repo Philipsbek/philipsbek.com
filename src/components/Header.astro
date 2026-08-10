@@ -1,0 +1,261 @@
+---
+import { site, nav } from '../data/site.js';
+import Icon from './Icon.astro';
+
+// Active-link detection based on the current path.
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => {
+  const clean = href.replace(/\/+$/, '') || '/';
+  return clean === path;
+};
+---
+<header class="site-header" data-header>
+  <div class="container container-wide site-header__inner">
+    <a class="wordmark" href="/" aria-label={`${site.name} — home`}>
+      <span class="wordmark__mark">{site.initials}</span>
+      <span class="wordmark__name">{site.name}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['site-nav__link', { 'is-active': isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-header__cta">
+      <a href="/contact" class="btn btn--primary btn--sm">
+        Let's talk <Icon name="arrow-right" />
+      </a>
+    </div>
+
+    <button
+      class="nav-toggle"
+      data-nav-toggle
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <Icon name="menu" class="nav-toggle__open" />
+      <Icon name="close" class="nav-toggle__close" />
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['mobile-menu__link', { 'is-active': isActive(item.href) }]}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a href="/contact" class="btn btn--primary mobile-menu__cta">
+      Start a project <Icon name="arrow-right" />
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .site-header[data-scrolled] {
+    border-bottom-color: var(--line);
+    background: color-mix(in srgb, var(--paper) 94%, transparent);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 72px;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .wordmark__mark {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+  .wordmark__name {
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+
+  .site-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .site-nav__link {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    border-radius: 8px;
+    transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .site-nav__link:hover {
+    color: var(--ink);
+    background: var(--paper-2);
+  }
+  .site-nav__link.is-active {
+    color: var(--accent);
+  }
+  .site-nav__link.is-active::after {
+    content: '';
+    position: absolute;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.2rem;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .btn--sm {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-toggle {
+    --icon-size: 21px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    color: var(--ink);
+  }
+  /* :global() so the rules reach the SVG rendered by the Icon component. */
+  :global(.nav-toggle__close) {
+    display: none;
+  }
+  .site-header.is-open :global(.nav-toggle__open) {
+    display: none;
+  }
+  .site-header.is-open :global(.nav-toggle__close) {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: none;
+    padding: 1rem var(--gutter) 2rem;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .mobile-menu ul {
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-menu__link {
+    display: block;
+    padding: 0.9rem 0.25rem;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-menu__link.is-active {
+    color: var(--accent);
+  }
+  .mobile-menu__cta {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .site-nav,
+    .site-header__cta {
+      display: none;
+    }
+    .nav-toggle {
+      display: inline-flex;
+    }
+    .site-header.is-open .mobile-menu {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const menu = document.querySelector('[data-mobile-menu]');
+
+  function setOpen(open: boolean) {
+    if (!header || !toggle || !menu) return;
+    header.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    (menu as HTMLElement).hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  toggle?.addEventListener('click', () => {
+    const open = header?.classList.contains('is-open');
+    setOpen(!open);
+  });
+
+  // Close on link click or Escape.
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  // Reset when resizing up to desktop.
+  const mq = window.matchMedia('(min-width: 861px)');
+  mq.addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+
+  // Elevate header once the page is scrolled.
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 8) header.setAttribute('data-scrolled', '');
+    else header.removeAttribute('data-scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

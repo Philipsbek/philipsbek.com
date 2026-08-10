@@ -1,0 +1,185 @@
+---
+import Icon from './Icon.astro';
+
+interface Project {
+  slug: string;
+  title: string;
+  category: string;
+  placeholder?: boolean;
+  overview: string;
+  role: string;
+  tools: string[];
+  challenge: string;
+  delivered: string;
+  url: string;
+  accent?: string;
+}
+interface Props {
+  project: Project;
+  delay?: number;
+}
+const { project, delay = 0 } = Astro.props;
+const hasLink = project.url && project.url !== '#';
+---
+<article
+  class="project-card card reveal"
+  data-category={project.category}
+  style={`--reveal-delay: ${delay}ms`}
+>
+  <div class={`project-thumb project-thumb--${project.accent ?? 'a'}`} aria-hidden="true">
+    <span class="project-thumb__initial">{project.title.charAt(0)}</span>
+    <span class="project-thumb__pattern"></span>
+    {project.placeholder && <span class="project-thumb__badge">Sample · replace</span>}
+  </div>
+
+  <div class="project-body">
+    <div class="project-meta">
+      <span class="tag">{project.category}</span>
+      <span class="project-role">{project.role}</span>
+    </div>
+    <h3 class="h3 project-title">{project.title}</h3>
+    <p class="project-overview">{project.overview}</p>
+
+    <dl class="project-detail">
+      <div>
+        <dt>Objective</dt>
+        <dd>{project.challenge}</dd>
+      </div>
+      <div>
+        <dt>Delivered</dt>
+        <dd>{project.delivered}</dd>
+      </div>
+    </dl>
+
+    <ul class="project-tools">
+      {project.tools.map((t) => <li class="tag">{t}</li>)}
+    </ul>
+
+    <div class="project-foot">
+      {hasLink ? (
+        <a class="link-arrow" href={project.url} target="_blank" rel="noopener noreferrer">
+          Visit site <Icon name="arrow-up-right" />
+        </a>
+      ) : (
+        <span class="project-foot__note">Live link coming soon</span>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--line-strong);
+  }
+
+  .project-thumb {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .project-thumb--a { background: linear-gradient(135deg, #12203b, #24344f); }
+  .project-thumb--b { background: linear-gradient(135deg, #2a1a12, #7a4327); }
+  .project-thumb--c { background: linear-gradient(135deg, #10221d, #244b41); }
+  .project-thumb__initial {
+    font-family: var(--font-display);
+    font-size: 3.4rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.92);
+    z-index: 1;
+  }
+  .project-thumb__pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+    background-size: 18px 18px;
+    opacity: 0.5;
+  }
+  .project-thumb__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 2;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    backdrop-filter: blur(2px);
+  }
+
+  .project-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    flex: 1;
+  }
+  .project-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .project-role {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .project-title {
+    margin-top: 0.1rem;
+  }
+  .project-overview {
+    color: var(--muted);
+    font-size: 0.96rem;
+  }
+  .project-detail {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .project-detail dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.15rem;
+  }
+  .project-detail dd {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  .project-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .project-tools .tag {
+    font-size: 0.76rem;
+    padding: 0.28rem 0.6rem;
+  }
+  .project-foot {
+    margin-top: auto;
+    padding-top: 0.4rem;
+  }
+  .project-foot__note {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+</style>

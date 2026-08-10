@@ -1,0 +1,429 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import {
+  site,
+  experience,
+  education,
+  techStack,
+  strengths,
+  certifications,
+  languages,
+  resumeUrl,
+} from '../data/site.js';
+---
+<BaseLayout
+  title="About"
+  path="/about"
+  description="Philips Bek is a Kuala Lumpur-based web and WordPress developer who builds responsive sites end to end and works with AI and automation tools."
+>
+  <PageHeader
+    eyebrow="About me"
+    title="Web developer with a builder’s mindset."
+    intro="I like taking an idea and turning it into something real and live on the web — then making it faster, cleaner and easier to find."
+  />
+
+  <!-- Intro + snapshot -->
+  <section class="section section--tight">
+    <div class="container about-intro">
+      <div class="about-intro__text reveal">
+        <p class="lead">
+          I’m {site.name}, a web and WordPress developer based in {site.location}. My background is
+          in Information Technology, with a degree focused on computer networking and security — which
+          gives me a solid, practical understanding of how the web actually works underneath the design.
+        </p>
+        <p>
+          Day to day, I build responsive websites and online stores, handle the hosting, domains and
+          DNS behind them, and tune everything for SEO and speed. I’m genuinely curious about AI and
+          automation, and I fold those tools into my workflow to move faster without cutting corners on
+          quality. I care about clean work, honest communication and shipping things that actually launch.
+        </p>
+        <p class="muted">
+          Outside of client work, I like experimenting with new tools — chatbots, automation platforms
+          and AI-assisted coding — to see where they genuinely make a difference and where a human still
+          needs to steer.
+        </p>
+      </div>
+      <aside class="about-snapshot reveal" style="--reveal-delay: 100ms">
+        <div class="snapshot card">
+          <h2 class="snapshot__title">At a glance</h2>
+          <dl>
+            <div><dt>Based in</dt><dd>{site.location}</dd></div>
+            <div><dt>Focus</dt><dd>Web &amp; WordPress development</dd></div>
+            <div><dt>Also</dt><dd>AI tools &amp; automation</dd></div>
+            <div><dt>Availability</dt><dd>Freelance &amp; full-time</dd></div>
+          </dl>
+          <a href={resumeUrl} class="btn btn--primary snapshot__btn" download>
+            <Icon name="download" /> Download résumé
+          </a>
+          <p class="snapshot__note">Résumé PDF — replace <code>/public/philips-bek-resume.pdf</code> with your file.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Experience timeline -->
+  <section class="section timeline-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Career journey</p>
+        <h2 class="h2">Where I’ve worked</h2>
+        <p>A path from testing and learning as an intern to owning complete website builds and AI automation.</p>
+      </div>
+
+      <ol class="timeline">
+        {experience.map((job, i) => (
+          <li class="timeline__item reveal" style={`--reveal-delay:${i * 80}ms`}>
+            <div class="timeline__marker" aria-hidden="true"></div>
+            <div class="timeline__content card">
+              <div class="timeline__head">
+                <div>
+                  <h3 class="timeline__role">{job.role}</h3>
+                  <span class="timeline__company">{job.company}</span>
+                </div>
+                <span class="timeline__period">{job.period}</span>
+              </div>
+              <p class="timeline__summary">{job.summary}</p>
+              <ul class="timeline__highlights">
+                {job.highlights.map((h) => (
+                  <li><Icon name="check" class="icon-check" /><span>{h}</span></li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Strengths -->
+  <section class="section section--tight strengths-band">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">How I work</p>
+        <h2 class="h2">Strengths &amp; approach</h2>
+      </div>
+      <div class="grid grid-2">
+        {strengths.map((s, i) => (
+          <div class="strength reveal" style={`--reveal-delay:${i * 70}ms`}>
+            <span class="strength__num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="h3">{s.title}</h3>
+              <p class="muted">{s.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Education + Tech stack -->
+  <section class="section">
+    <div class="container about-two-col">
+      <div class="reveal">
+        <p class="eyebrow">Education</p>
+        <h2 class="h2 col-title">Learning &amp; qualifications</h2>
+        <ul class="edu-list">
+          {education.map((e) => (
+            <li class="edu-item">
+              <div class="edu-item__head">
+                <h3 class="edu-item__school">{e.school}</h3>
+                <span class="edu-item__period">{e.period}</span>
+              </div>
+              <p class="muted">{e.credential}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mini-block">
+          <h3 class="mini-block__title">Certifications</h3>
+          {certifications.length ? (
+            <ul class="edu-list">
+              {certifications.map((c) => (
+                <li class="edu-item"><h3 class="edu-item__school">{c.name}</h3><p class="muted">{c.issuer} · {c.year}</p></li>
+              ))}
+            </ul>
+          ) : (
+            <p class="placeholder-note">No certifications listed yet — add them in <code>src/data/site.js</code>.</p>
+          )}
+        </div>
+
+        <div class="mini-block">
+          <h3 class="mini-block__title">Languages</h3>
+          {languages.length ? (
+            <ul class="lang-list">
+              {languages.map((l) => <li class="tag">{l.name}{l.level ? ` · ${l.level}` : ''}</li>)}
+            </ul>
+          ) : (
+            <p class="placeholder-note">Add your spoken languages in <code>src/data/site.js</code>.</p>
+          )}
+        </div>
+      </div>
+
+      <div class="reveal" style="--reveal-delay: 100ms">
+        <p class="eyebrow">Tech &amp; tools</p>
+        <h2 class="h2 col-title">Technologies &amp; AI tools I use</h2>
+        <div class="stack-groups">
+          {techStack.map((group) => (
+            <div class="stack-group">
+              <h3 class="stack-group__title">{group.group}</h3>
+              <ul class="stack-group__items">
+                {group.items.map((item) => <li class="tag">{item}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA heading="Think we’d work well together?" text="I’m always open to a good project or the right role. Let’s talk about what you’re building." />
+</BaseLayout>
+
+<style>
+  .about-intro {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .about-intro__text > * + * {
+    margin-top: 1.25rem;
+  }
+  .snapshot {
+    padding: 1.75rem;
+    position: sticky;
+    top: 96px;
+  }
+  .snapshot__title {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  .snapshot dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .snapshot dt {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .snapshot dd {
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: right;
+  }
+  .snapshot__btn {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+  .snapshot__note {
+    margin-top: 0.85rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  code {
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-size: 0.85em;
+    background: var(--paper-2);
+    padding: 0.1em 0.35em;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+  }
+
+  /* Timeline */
+  .timeline-section {
+    background: var(--paper-2);
+    border-block: 1px solid var(--line);
+  }
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-left: 0.5rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--line-strong);
+  }
+  .timeline__item {
+    position: relative;
+    padding-left: 2.25rem;
+  }
+  .timeline__marker {
+    position: absolute;
+    left: 0;
+    top: 1.6rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--paper-2);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .timeline__content {
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .timeline__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .timeline__role {
+    font-size: 1.25rem;
+  }
+  .timeline__company {
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .timeline__period {
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .timeline__summary {
+    margin: 0.9rem 0 1rem;
+    color: var(--ink-soft);
+  }
+  .timeline__highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .timeline__highlights li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  /* Strengths */
+  .strengths-band {
+    /* plain */
+  }
+  .strength {
+    display: flex;
+    gap: 1.1rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .strength__num {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .strength h3 {
+    margin-bottom: 0.4rem;
+  }
+
+  /* Education / stack columns */
+  .about-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: start;
+  }
+  .col-title {
+    margin: 0.75rem 0 1.75rem;
+    font-size: clamp(1.6rem, 2.6vw, 2rem);
+  }
+  .edu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .edu-item {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .edu-item__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.35rem;
+  }
+  .edu-item__school {
+    font-size: 1.1rem;
+  }
+  .edu-item__period {
+    font-size: 0.85rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .mini-block {
+    margin-top: 2rem;
+  }
+  .mini-block__title {
+    font-size: 1.05rem;
+    margin-bottom: 0.85rem;
+  }
+  .placeholder-note {
+    font-size: 0.9rem;
+    color: var(--muted);
+    background: var(--accent-soft);
+    border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+  }
+  .lang-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .stack-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .stack-group__title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .stack-group__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .about-intro,
+    .about-two-col {
+      grid-template-columns: 1fr;
+    }
+    .snapshot {
+      position: static;
+    }
+  }
+</style>

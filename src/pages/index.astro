@@ -1,0 +1,492 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import {
+  site,
+  featuredSkills,
+  projects,
+  services,
+  experience,
+} from '../data/site.js';
+
+const featuredProjects = projects.slice(0, 3);
+const homeServices = services.slice(0, 4);
+---
+<BaseLayout path="/">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <p class="eyebrow reveal">
+          {site.role}
+        </p>
+        <h1 class="hero__title reveal" style="--reveal-delay: 80ms">
+          I build modern websites and <span class="accent-text">smarter</span> digital experiences.
+        </h1>
+        <p class="hero__intro lead reveal" style="--reveal-delay: 160ms">
+          I’m {site.name.split(' ')[0]}, a web and WordPress developer in {site.location}. I take
+          projects from first build to launch — design, hosting, domains and SEO — and use AI tools
+          and automation to work faster and smarter.
+        </p>
+        <div class="hero__actions reveal" style="--reveal-delay: 240ms">
+          <a href="/portfolio" class="btn btn--primary">
+            View my work <Icon name="arrow-right" />
+          </a>
+          <a href="/contact" class="btn btn--ghost">
+            Contact me
+          </a>
+        </div>
+        <div class="hero__meta reveal" style="--reveal-delay: 320ms">
+          <span class="hero__status">Available for work</span>
+          <span class="hero__loc"><Icon name="pin" /> {site.location}</span>
+        </div>
+      </div>
+
+      <div class="hero__aside reveal" style="--reveal-delay: 200ms" aria-hidden="true">
+        <div class="hero-card">
+          <div class="hero-card__avatar">{site.initials}</div>
+          <div class="hero-card__lines">
+            <span class="hero-card__name">{site.name}</span>
+            <span class="hero-card__role">Web &amp; WordPress Developer</span>
+          </div>
+          <ul class="hero-card__stack">
+            <li>WordPress</li>
+            <li>Elementor</li>
+            <li>WooCommerce</li>
+            <li>Make.com</li>
+            <li>n8n</li>
+            <li>SEO</li>
+          </ul>
+          <div class="hero-card__foot">
+            <span class="dot"></span> Building from concept to launch
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS MARQUEE / STRIP -->
+  <section class="skills-strip">
+    <div class="container">
+      <div class="skills-strip__inner reveal">
+        <span class="skills-strip__label">Core toolkit</span>
+        <ul class="skills-strip__list">
+          {featuredSkills.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED WORK -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head-row">
+        <div class="section-head reveal" style="margin-bottom:0">
+          <p class="eyebrow">Selected work</p>
+          <h2 class="h2">Featured projects</h2>
+          <p>A snapshot of the kind of websites and automations I build, from WordPress sites to AI-driven workflows.</p>
+        </div>
+        <a href="/portfolio" class="link-arrow reveal">
+          All projects <Icon name="arrow-right" />
+        </a>
+      </div>
+
+      <div class="grid grid-3">
+        {featuredProjects.map((p, i) => (
+          <ProjectCard project={p} delay={i * 90} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="section section--tight services-band">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">What I do</p>
+        <h2 class="h2">Services, end to end</h2>
+        <p>From a single landing page to a full store with automation behind it — here’s where I can help.</p>
+      </div>
+
+      <div class="services-list">
+        {homeServices.map((s, i) => (
+          <a href="/services" class="service-row reveal" style={`--reveal-delay:${i * 70}ms`}>
+            <span class="service-row__icon"><Icon name={s.icon} /></span>
+            <span class="service-row__text">
+              <span class="service-row__title">{s.title}</span>
+              <span class="service-row__blurb">{s.blurb}</span>
+            </span>
+            <Icon name="arrow-up-right" class="service-row__arrow" />
+          </a>
+        ))}
+      </div>
+      <div class="services-band__cta reveal">
+        <a href="/services" class="link-arrow">Explore all services <Icon name="arrow-right" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE SUMMARY -->
+  <section class="section">
+    <div class="container">
+      <div class="exp-grid">
+        <div class="exp-intro reveal">
+          <p class="eyebrow">Experience</p>
+          <h2 class="h2">A few years of building for the web</h2>
+          <p class="muted">
+            From testing sites as an intern to shipping complete builds and AI chatbots, I’ve worked
+            across the full lifecycle of a modern website.
+          </p>
+          <a href="/about" class="btn btn--ghost">
+            More about me <Icon name="arrow-right" />
+          </a>
+        </div>
+        <ol class="exp-timeline">
+          {experience.map((job, i) => (
+            <li class="exp-item reveal" style={`--reveal-delay:${i * 80}ms`}>
+              <span class="exp-item__period">{job.period}</span>
+              <div class="exp-item__body">
+                <h3 class="exp-item__role">{job.role}</h3>
+                <span class="exp-item__company">{job.company}</span>
+                <p>{job.summary}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-top: clamp(2.5rem, 6vw, 5rem);
+    padding-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+  .hero__title {
+    font-size: clamp(2.6rem, 6.2vw, 4.6rem);
+    line-height: 1.03;
+    margin-top: 1.25rem;
+    letter-spacing: -0.03em;
+  }
+  .hero__intro {
+    margin-top: 1.5rem;
+    max-width: 46ch;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+  .hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .hero__status::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #16a34a;
+    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.16);
+  }
+  .hero__loc {
+    --icon-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* Hero aside card */
+  .hero__aside {
+    display: flex;
+    justify-content: center;
+  }
+  .hero-card {
+    width: 100%;
+    max-width: 360px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    transform: rotate(1.4deg);
+    transition: transform 0.4s var(--ease);
+  }
+  .hero-card:hover {
+    transform: rotate(0deg);
+  }
+  .hero-card__avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-2));
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .hero-card__lines {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-card__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+  .hero-card__role {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .hero-card__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+  .hero-card__stack li {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+  }
+  .hero-card__foot {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .hero-card__foot .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Skills strip */
+  .skills-strip {
+    border-block: 1px solid var(--line);
+    background: var(--paper-2);
+  }
+  .skills-strip__inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding-block: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .skills-strip__label {
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .skills-strip__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.75rem;
+  }
+  .skills-strip__list li {
+    position: relative;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+  }
+
+  /* Section head row */
+  .section-head-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .section-head-row .link-arrow {
+    white-space: nowrap;
+    padding-bottom: 0.4rem;
+  }
+
+  /* Services band */
+  .services-band {
+    background: var(--paper-2);
+    border-block: 1px solid var(--line);
+  }
+  .services-list {
+    display: grid;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .service-row {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: clamp(1.1rem, 2.2vw, 1.6rem) clamp(1.1rem, 2.2vw, 1.75rem);
+    border-bottom: 1px solid var(--line);
+    transition: background 0.2s var(--ease);
+  }
+  .service-row:last-child {
+    border-bottom: none;
+  }
+  .service-row:hover {
+    background: var(--paper-2);
+  }
+  .service-row__icon {
+    --icon-size: 20px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .service-row__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .service-row__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  .service-row__blurb {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  /* :global() so these reach the SVG the Icon component renders. */
+  :global(.service-row__arrow) {
+    --icon-size: 19px;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .service-row:hover :global(.service-row__arrow) {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+  .services-band__cta {
+    margin-top: 1.75rem;
+  }
+
+  /* Experience */
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .exp-intro .h2 {
+    margin: 0.75rem 0 1rem;
+  }
+  .exp-intro .btn {
+    margin-top: 1.75rem;
+  }
+  .exp-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 1.25rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .exp-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .exp-item__period {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    padding-top: 0.2rem;
+  }
+  .exp-item__role {
+    font-size: 1.2rem;
+  }
+  .exp-item__company {
+    display: block;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .exp-item__body p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 880px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+    .hero__aside {
+      order: -1;
+      justify-content: flex-start;
+    }
+    .hero-card {
+      transform: none;
+      max-width: 320px;
+    }
+    .exp-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .section-head-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .exp-item {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+    :global(.service-row__arrow) {
+      display: none;
+    }
+  }
+</style>
