@@ -178,6 +178,25 @@ const homeServices = services.slice(0, 4);
   <ContactCTA />
 </BaseLayout>
 
+<script>
+  // Subtle pointer parallax on the hero backdrop.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(pointer: fine)').matches;
+  const hero = document.querySelector('.hero');
+  const decor = document.querySelector('.hero__decor') as HTMLElement | null;
+  if (hero && decor && !reduce && fine) {
+    hero.addEventListener('pointermove', (e: PointerEvent) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      decor.style.transform = `translate(${x * -22}px, ${y * -14}px)`;
+    });
+    hero.addEventListener('pointerleave', () => {
+      decor.style.transform = '';
+    });
+  }
+</script>
+
 <style>
   /* Hero */
   .hero {
@@ -193,6 +212,8 @@ const homeServices = services.slice(0, 4);
     width: min(46vw, 460px);
     pointer-events: none;
     z-index: 0;
+    transition: transform 0.4s var(--ease);
+    will-change: transform;
   }
   .hero__decor svg {
     width: 100%;

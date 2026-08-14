@@ -363,12 +363,32 @@ ol {
 
 /* ------------------------------ Cards & surfaces -------------------- */
 .card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
     transform 0.25s var(--ease);
+}
+/* Pointer-tracking spotlight — a faint light that follows the cursor. */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.07),
+    transparent 55%
+  );
+  transition: opacity 0.3s var(--ease);
+}
+.card:hover::after {
+  opacity: 1;
 }
 
 .tag {
@@ -472,4 +492,38 @@ ol {
 }
 .stack > * + * {
   margin-top: 1rem;
+}
+
+/* ------------------------------ Interactions ----------------------- */
+/* Top scroll-progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 200;
+  background: var(--color-acid-lime);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Magnetic buttons ease back to place when the pointer leaves (JS sets the
+   inline transform on move). */
+.btn--primary,
+.btn--light {
+  transition: background 0.18s var(--ease), color 0.18s var(--ease),
+    border-color 0.18s var(--ease), box-shadow 0.18s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card::after {
+    display: none;
+  }
+  .scroll-progress {
+    display: none;
+  }
 }
