@@ -20,6 +20,10 @@ export const site = {
     'Philips Bek is a web and WordPress developer in Kuala Lumpur who builds fast, responsive websites and uses AI tools and automation to work smarter.',
   location: 'Kuala Lumpur, Malaysia',
   availability: 'Open to freelance projects and full-time web / WordPress roles.',
+  // Portrait photo. Save your image at public/images/philips-bek.jpg
+  // (or update this path). Used on the About page and the home hero card.
+  photo: '/images/philips-bek.jpg',
+  photoAlt: 'Philips Bek at his Sunway University graduation',
 };
 
 export const contact = {

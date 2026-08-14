@@ -60,7 +60,9 @@ const homeServices = services.slice(0, 4);
 
       <div class="hero__aside reveal" style="--reveal-delay: 200ms" aria-hidden="true">
         <div class="hero-card">
-          <div class="hero-card__avatar">{site.initials}</div>
+          <div class="hero-card__avatar">
+            <img src={site.photo} alt="" width="120" height="120" loading="lazy" />
+          </div>
           <div class="hero-card__lines">
             <span class="hero-card__name">{site.name}</span>
             <span class="hero-card__role">Web &amp; WordPress Developer</span>
@@ -281,14 +283,15 @@ const homeServices = services.slice(0, 4);
     width: 60px;
     height: 60px;
     border-radius: 10px;
+    overflow: hidden;
     background: var(--color-obsidian);
     border: 1px solid var(--color-graphite);
-    color: var(--color-paper);
-    display: grid;
-    place-items: center;
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 1.3rem;
+  }
+  .hero-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 6%;
   }
   .hero-card__lines {
     display: flex;

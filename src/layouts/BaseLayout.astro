@@ -33,6 +33,7 @@ const personSchema = {
   jobTitle: site.role,
   email: `mailto:${contact.email}`,
   url: (Astro.site ?? Astro.url.origin).toString(),
+  ...(site.photo ? { image: new URL(site.photo, Astro.site ?? Astro.url.origin).href } : {}),
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kuala Lumpur',

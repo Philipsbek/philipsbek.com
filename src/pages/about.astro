@@ -47,6 +47,9 @@ import {
         </p>
       </div>
       <aside class="about-snapshot reveal" style="--reveal-delay: 100ms">
+        <figure class="about-portrait">
+          <img src={site.photo} alt={site.photoAlt} width="720" height="900" loading="lazy" />
+        </figure>
         <div class="snapshot card">
           <h2 class="snapshot__title">At a glance</h2>
           <dl>
@@ -187,10 +190,29 @@ import {
   .about-intro__text > * + * {
     margin-top: 1.25rem;
   }
+  .about-snapshot {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .about-portrait {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--color-carbon);
+    box-shadow: var(--shadow-sm);
+  }
+  .about-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 16%;
+  }
   .snapshot {
     padding: 1.75rem;
-    position: sticky;
-    top: 96px;
   }
   .snapshot__title {
     font-family: var(--font-display);
