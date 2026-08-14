@@ -246,8 +246,8 @@ const homeServices = services.slice(0, 4);
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #16a34a;
-    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.16);
+    background: var(--color-pulse-green);
+    box-shadow: 0 0 0 4px rgba(39, 166, 68, 0.18);
   }
   .hero__loc {
     --icon-size: 15px;
@@ -266,29 +266,29 @@ const homeServices = services.slice(0, 4);
     max-width: 360px;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 20px;
+    border-radius: var(--radius);
     padding: 1.75rem;
     box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
-    transform: rotate(1.4deg);
-    transition: transform 0.4s var(--ease);
+    transition: border-color 0.3s var(--ease);
   }
   .hero-card:hover {
-    transform: rotate(0deg);
+    border-color: var(--color-smoke);
   }
   .hero-card__avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, var(--navy), var(--navy-2));
-    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: var(--color-obsidian);
+    border: 1px solid var(--color-graphite);
+    color: var(--color-paper);
     display: grid;
     place-items: center;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 1.3rem;
   }
   .hero-card__lines {
     display: flex;
@@ -413,9 +413,10 @@ const homeServices = services.slice(0, 4);
     width: 44px;
     height: 44px;
     flex-shrink: 0;
-    border-radius: 11px;
-    background: var(--accent-soft);
-    color: var(--accent);
+    border-radius: var(--radius-sm);
+    background: var(--chip-bg);
+    color: var(--color-mist);
+    border: 1px solid var(--line);
   }
   .service-row__text {
     display: flex;
@@ -439,7 +440,7 @@ const homeServices = services.slice(0, 4);
     transition: transform 0.2s var(--ease), color 0.2s var(--ease);
   }
   .service-row:hover :global(.service-row__arrow) {
-    color: var(--accent);
+    color: var(--color-paper);
     transform: translate(2px, -2px);
   }
   .services-band__cta {
@@ -476,9 +477,10 @@ const homeServices = services.slice(0, 4);
     padding-bottom: 0;
   }
   .exp-item__period {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--color-fog);
     padding-top: 0.2rem;
   }
   .exp-item__role {

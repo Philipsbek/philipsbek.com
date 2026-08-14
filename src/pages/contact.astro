@@ -228,12 +228,14 @@ const iconFor: Record<string, string> = {
   }
   /* :global() so it reaches the SVG rendered by the Icon component. */
   .form-disclaimer :global(.icon) {
-    color: var(--accent);
+    color: var(--color-fog);
     margin-top: 0.15rem;
   }
   .form-disclaimer a {
-    color: var(--accent);
-    font-weight: 500;
+    color: var(--color-mist);
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   /* Aside */
@@ -263,24 +265,26 @@ const iconFor: Record<string, string> = {
     width: 42px;
     height: 42px;
     flex-shrink: 0;
-    border-radius: 11px;
-    background: var(--accent-soft);
-    color: var(--accent);
+    border-radius: var(--radius-sm);
+    background: var(--chip-bg);
+    color: var(--color-mist);
+    border: 1px solid var(--line);
   }
   .contact-method__label {
     display: block;
-    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.04em;
   }
   .contact-methods a,
   .contact-methods div > span:last-child {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 0.98rem;
   }
   .contact-methods a:hover {
-    color: var(--accent);
+    color: var(--color-paper);
   }
 
   .availability {
@@ -293,8 +297,8 @@ const iconFor: Record<string, string> = {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #16a34a;
-    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.16);
+    background: var(--color-pulse-green);
+    box-shadow: 0 0 0 4px rgba(39, 166, 68, 0.18);
     flex-shrink: 0;
   }
   .contact-availability-note {
@@ -321,8 +325,8 @@ const iconFor: Record<string, string> = {
     transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
   }
   .contact-social:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    border-color: var(--color-smoke);
+    color: var(--color-paper);
   }
 
   @media (max-width: 860px) {

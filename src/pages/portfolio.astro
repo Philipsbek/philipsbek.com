@@ -56,22 +56,23 @@ const showFilters = projects.length >= 4;
     margin-bottom: 2rem;
   }
   .filter-btn {
-    padding: 0.5rem 1.1rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--ink-soft);
-    background: var(--surface);
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--color-mist);
+    background: var(--chip-bg);
     border: 1px solid var(--line);
     border-radius: 999px;
     transition: all 0.2s var(--ease);
   }
   .filter-btn:hover {
-    border-color: var(--ink);
+    border-color: var(--color-smoke);
+    color: var(--color-paper);
   }
   .filter-btn.is-active {
-    background: var(--ink);
-    color: #fff;
-    border-color: var(--ink);
+    background: var(--color-bone);
+    color: var(--color-void);
+    border-color: var(--color-bone);
   }
 
   .no-results {

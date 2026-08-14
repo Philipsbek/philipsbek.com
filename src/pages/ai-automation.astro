@@ -94,7 +94,7 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
             <line x1="96" y1="120" x2="60" y2="168" />
             <line x1="210" y1="96" x2="188" y2="164" />
           </g>
-          <g fill="var(--accent)" stroke="#fff" stroke-width="1.4">
+          <g fill="var(--color-iris-violet)" stroke="var(--color-mist)" stroke-width="1.4">
             <circle cx="40" cy="50" r="9" />
             <circle cx="150" cy="36" r="9" />
             <circle cx="96" cy="120" r="9" />
@@ -104,7 +104,7 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
           </g>
         </svg>
         <div class="principles__head">
-          <p class="eyebrow" style="color: var(--accent)">My approach</p>
+          <p class="eyebrow">My approach</p>
           <h2 class="h2">Human judgement stays in the loop</h2>
           <p>A few rules I hold myself to when working with AI:</p>
         </div>
@@ -153,12 +153,12 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
     --icon-size: 21px;
     display: grid;
     place-items: center;
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     flex-shrink: 0;
-    border-radius: 12px;
-    background: var(--accent-soft);
-    color: var(--accent);
+    border-radius: var(--radius-sm);
+    background: var(--chip-bg);
+    color: var(--color-mist);
     border: 1px solid var(--line);
   }
   .ai-card h3 {
@@ -190,7 +190,7 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
     transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
   }
   .ai-tool:hover {
-    border-color: var(--accent);
+    border-color: var(--color-smoke);
     transform: translateY(-2px);
   }
   .ai-tool__name {
@@ -257,9 +257,9 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
     padding-bottom: 0;
   }
   .principles__num {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--accent);
+    font-family: var(--font-mono);
+    font-weight: 400;
+    color: var(--color-fog);
     flex-shrink: 0;
   }
 

@@ -93,15 +93,15 @@ const artKind = artForCategory[project.category] ?? 'default';
     overflow: hidden;
     border-bottom: 1px solid var(--line);
   }
-  .project-thumb--a { background: linear-gradient(135deg, #12203b, #24344f); }
-  .project-thumb--b { background: linear-gradient(135deg, #2a1a12, #7a4327); }
-  .project-thumb--c { background: linear-gradient(135deg, #10221d, #244b41); }
+  .project-thumb--a { background: radial-gradient(120% 120% at 70% 0%, #17181c, #0d0e0f); }
+  .project-thumb--b { background: radial-gradient(120% 120% at 70% 0%, #17181c, #0d0e0f); }
+  .project-thumb--c { background: radial-gradient(120% 120% at 70% 0%, #17181c, #0d0e0f); }
   .project-thumb__pattern {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
-    background-size: 18px 18px;
-    opacity: 0.5;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.6;
   }
   .project-card:hover :global(.thumb-art) {
     transform: scale(1.03);
@@ -138,12 +138,13 @@ const artKind = artForCategory[project.category] ?? 'default';
     border-bottom: 1px solid var(--line);
   }
   .project-detail dt {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.15rem;
+    color: var(--color-fog);
+    margin-bottom: 0.2rem;
   }
   .project-detail dd {
     font-size: 0.9rem;

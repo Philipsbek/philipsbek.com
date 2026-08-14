@@ -14,13 +14,12 @@ const {
 <section class="section">
   <div class="container">
     <div class="cta-panel dark-panel reveal">
-      <div class="cta-panel__glow" aria-hidden="true"></div>
       <div class="cta-panel__content">
-        <p class="eyebrow" style="color: var(--accent);">Get in touch</p>
+        <p class="eyebrow">Get in touch</p>
         <h2 class="h2">{heading}</h2>
         <p>{text}</p>
         <div class="cta-panel__actions">
-          <a href="/contact" class="btn btn--light">
+          <a href="/contact" class="btn btn--primary">
             Contact me <Icon name="arrow-right" />
           </a>
           <a href={`mailto:${contact.email}`} class="btn btn--on-navy">
@@ -37,18 +36,8 @@ const {
   .cta-panel {
     position: relative;
     overflow: hidden;
-    border-radius: clamp(18px, 3vw, 28px);
+    border-radius: var(--radius);
     padding: clamp(2.5rem, 6vw, 4.5rem);
-  }
-  .cta-panel__glow {
-    position: absolute;
-    top: -40%;
-    right: -10%;
-    width: 480px;
-    height: 480px;
-    background: radial-gradient(circle, rgba(191, 76, 38, 0.4), transparent 65%);
-    filter: blur(20px);
-    pointer-events: none;
   }
   .cta-panel__content {
     position: relative;
@@ -81,7 +70,7 @@ const {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.2);
+    background: var(--color-pulse-green);
+    box-shadow: 0 0 0 4px rgba(39, 166, 68, 0.18);
   }
 </style>

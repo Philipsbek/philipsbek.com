@@ -84,6 +84,9 @@ const iconFor: Record<string, string> = {
 
 <style>
   .site-footer {
+    background: var(--color-void);
+    border: none;
+    border-top: 1px solid var(--line);
     padding-block: clamp(3.5rem, 6vw, 5.5rem) 2rem;
   }
   .footer-top {
@@ -99,23 +102,25 @@ const iconFor: Record<string, string> = {
     margin: 1.1rem 0 1.75rem;
   }
   .wordmark--footer {
-    color: var(--on-navy);
+    color: var(--color-paper);
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 510;
+    font-size: 1.05rem;
     display: inline-flex;
     align-items: center;
     gap: 0.7rem;
   }
   .wordmark--footer .wordmark__mark {
-    background: var(--accent);
-    color: #fff;
+    background: var(--color-obsidian);
+    color: var(--color-paper);
+    border: 1px solid var(--color-graphite);
     display: grid;
     place-items: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    font-size: 0.95rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
   }
 
   .footer-cols {
@@ -187,25 +192,28 @@ const iconFor: Record<string, string> = {
     right: clamp(1rem, 3vw, 2rem);
     bottom: clamp(1rem, 3vw, 2rem);
     z-index: 90;
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     display: grid;
     place-items: center;
-    background: var(--ink);
-    color: #fff;
-    border: none;
+    background: var(--color-obsidian);
+    color: var(--color-mist);
+    border: 1px solid var(--color-graphite);
     border-radius: 50%;
     box-shadow: var(--shadow-md);
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s var(--ease);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease),
+      background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
   }
   .to-top[data-visible] {
     opacity: 1;
     transform: none;
   }
   .to-top:hover {
-    background: var(--accent);
+    background: var(--color-acid-lime);
+    color: var(--color-void);
+    border-color: var(--color-acid-lime);
   }
 </style>
 
