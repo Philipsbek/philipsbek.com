@@ -220,6 +220,38 @@ export const services = [
  */
 export const projects = [
   {
+    slug: 'klinik-pergigian-kita',
+    title: 'Klinik Pergigian Kita',
+    category: 'Business Website',
+    placeholder: false,
+    image: '/projects/klinik-pergigian-kita.jpg',
+    overview:
+      'A modern, trust-building website for a Malaysian dental clinic — clear service listings, real patient testimonials, multiple branches and easy contact.',
+    role: 'Web / WordPress Developer',
+    tools: ['WordPress', 'Elementor', 'SEO', 'Responsive design'],
+    challenge: 'Present a full range of dental services and build patient trust while keeping contact and enquiries effortless.',
+    delivered:
+      'A responsive WordPress site with service pages, genuine patient reviews, branch details and clear WhatsApp / contact calls to action.',
+    url: 'https://klinikpergigiankita.com/',
+    accent: 'a',
+  },
+  {
+    slug: 'muheet-oil-refining',
+    title: 'Muheet Oil Refining',
+    category: 'Business Website',
+    placeholder: false,
+    image: '/projects/muheet-oil-refining.jpg',
+    overview:
+      'A corporate website for a Libyan oil-refining and refinery-development company — presenting its projects, engineering focus and role in the national energy sector.',
+    role: 'Web / WordPress Developer',
+    tools: ['WordPress', 'Elementor', 'SEO', 'Responsive design'],
+    challenge: 'Convey the scale, credibility and technical expertise of a major industrial project in a clean, modern layout.',
+    delivered:
+      'A polished, responsive WordPress corporate site covering the refinery project, company vision, accreditation and news across well-structured sections.',
+    url: 'https://muheet.ly/',
+    accent: 'b',
+  },
+  {
     slug: 'pop-site',
     title: 'Pop Site — Site Builder',
     category: 'Landing Page',
