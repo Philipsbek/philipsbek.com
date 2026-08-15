@@ -15,6 +15,7 @@ interface Project {
   title: string;
   category: string;
   placeholder?: boolean;
+  image?: string;
   overview: string;
   role: string;
   tools: string[];
@@ -37,8 +38,14 @@ const artKind = artForCategory[project.category] ?? 'default';
   style={`--reveal-delay: ${delay}ms`}
 >
   <div class={`project-thumb project-thumb--${project.accent ?? 'a'}`} aria-hidden="true">
-    <span class="project-thumb__pattern"></span>
-    <ThumbArt kind={artKind} />
+    {project.image ? (
+      <img class="project-thumb__img" src={project.image} alt={`${project.title} website screenshot`} width="1200" height="750" loading="lazy" />
+    ) : (
+      <>
+        <span class="project-thumb__pattern"></span>
+        <ThumbArt kind={artKind} />
+      </>
+    )}
   </div>
 
   <div class="project-body">
@@ -103,6 +110,23 @@ const artKind = artForCategory[project.category] ?? 'default';
     background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 20px 20px;
     opacity: 0.6;
+  }
+  .project-thumb__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s var(--ease);
+  }
+  .project-card:hover .project-thumb__img {
+    transform: scale(1.03);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-thumb__img {
+      transition: none;
+    }
   }
   .project-card:hover :global(.thumb-art) {
     transform: scale(1.03);

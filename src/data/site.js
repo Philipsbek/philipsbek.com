@@ -224,6 +224,7 @@ export const projects = [
     title: 'Pop Site — Site Builder',
     category: 'Landing Page',
     placeholder: false,
+    image: '/projects/pop-site.jpg',
     overview:
       'A bold, editorial marketing site for a one-page “link-in-bio” website builder — monumental type, a single blue accent and lively product mockups.',
     role: 'Design & front-end (vibe-coded with Claude)',
@@ -239,6 +240,7 @@ export const projects = [
     title: 'Beauty Talent Academy',
     category: 'Business Website',
     placeholder: false,
+    image: '/projects/beauty-talent-academy.jpg',
     overview:
       'A polished website for an established beauty school in Kuantan — courses, certifications and trust stats presented with a calm, editorial layout and a WhatsApp enquiry flow.',
     role: 'Design & front-end (vibe-coded with Claude)',
