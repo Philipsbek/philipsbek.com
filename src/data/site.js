@@ -214,12 +214,41 @@ export const services = [
 /**
  * PORTFOLIO PROJECTS
  * ------------------
- * These are sample cards based on the kinds of work described in the resume.
- * They are clearly marked as placeholders. Replace each `overview`, `delivered`
- * and `url` with a real project. Set `placeholder: false` and add a real `url`
- * once a case study is ready. Keep image paths pointing to /public/projects/.
+ * Real projects lead the list (they carry live links). The remaining entries
+ * are representative sample cards you can replace with real work over time.
+ * Keep any project images in /public/projects/.
  */
 export const projects = [
+  {
+    slug: 'pop-site',
+    title: 'Pop Site — Site Builder',
+    category: 'Landing Page',
+    placeholder: false,
+    overview:
+      'A bold, editorial marketing site for a one-page “link-in-bio” website builder — monumental type, a single blue accent and lively product mockups.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'Vercel'],
+    challenge: 'Make a link-in-bio product feel premium and genuinely clickable using typography and rhythm alone.',
+    delivered:
+      'A responsive, multi-section landing page with animated product cards, a block-by-block feature showcase and clear calls to action — deployed on Vercel.',
+    url: 'https://design-pop-site.vercel.app/',
+    accent: 'a',
+  },
+  {
+    slug: 'beauty-talent-academy',
+    title: 'Beauty Talent Academy',
+    category: 'Business Website',
+    placeholder: false,
+    overview:
+      'A polished website for an established beauty school in Kuantan — courses, certifications and trust stats presented with a calm, editorial layout and a WhatsApp enquiry flow.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'SEO', 'Vercel'],
+    challenge: 'Communicate 36 years of credibility and a full course catalogue clearly, and turn visitors into WhatsApp enquiries.',
+    delivered:
+      'A responsive marketing site with programme listings, certification badges, animated trust stats and WhatsApp call-to-actions — deployed on Vercel.',
+    url: 'https://beauty-talent-academy.vercel.app/',
+    accent: 'b',
+  },
   {
     slug: 'wordpress-business-site',
     title: 'Business Website (WordPress)',
