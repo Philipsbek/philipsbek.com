@@ -252,6 +252,22 @@ export const projects = [
     accent: 'b',
   },
   {
+    slug: 'morphic',
+    title: 'Morphic — Text-to-Anime',
+    category: 'Landing Page',
+    placeholder: false,
+    image: '/projects/morphic.jpg',
+    overview:
+      'A cinematic, dark-mode marketing site for an AI tool that turns a single line of story into cel-shaded anime — key visuals, consistent characters and animated cuts.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'Vercel'],
+    challenge: 'Sell an imaginative AI creative product with the mood and polish of a real anime studio.',
+    delivered:
+      'A responsive, animation-rich landing page with a scrolling scene gallery, feature workflows and an infinite-storyboard showcase — deployed on Vercel.',
+    url: 'https://design-morphic.vercel.app/',
+    accent: 'c',
+  },
+  {
     slug: 'pop-site',
     title: 'Pop Site — Site Builder',
     category: 'Landing Page',
