@@ -254,6 +254,22 @@ export const projects = [
     accent: 'b',
   },
   {
+    slug: 'peikar-stays',
+    title: 'Peikar — Superhost Stays',
+    category: 'Landing Page',
+    placeholder: false,
+    // image: '/projects/peikar.jpg', // TODO: add screenshot when reachable
+    overview:
+      'An Airbnb-style showcase for a Kuantan Superhost’s 13 vacation homes — property cards with ratings, a host profile and quick chat-to-book links.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'Vercel'],
+    challenge: 'Turn a scattered set of holiday-home listings into one polished, trustworthy booking showcase.',
+    delivered:
+      'A responsive listings page with property cards, ratings, a Superhost profile and direct WhatsApp / Airbnb booking links — deployed on Vercel.',
+    url: 'https://peikar-airbnb.vercel.app/',
+    accent: 'c',
+  },
+  {
     slug: 'mekaverse',
     title: 'MekaVerse — Digital Art Gallery',
     category: 'Landing Page',
