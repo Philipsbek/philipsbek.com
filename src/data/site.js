@@ -252,6 +252,22 @@ export const projects = [
     accent: 'b',
   },
   {
+    slug: 'mekaverse',
+    title: 'MekaVerse — Digital Art Gallery',
+    category: 'Landing Page',
+    placeholder: false,
+    image: '/projects/mekaverse.jpg',
+    overview:
+      'A stark, monochrome showcase for a 10,000-piece mecha digital-art collection — a full-bleed black gallery where only the artwork carries colour, with live collection stats and a Web3 mint flow.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'Vercel'],
+    challenge: 'Give a digital-collectible drop a premium, gallery-like presence where the interface all but disappears.',
+    delivered:
+      'A responsive, high-contrast showcase with animated marquees, region storytelling, live stats and clear mint / connect-wallet calls to action — deployed on Vercel.',
+    url: 'https://design-meka-verse.vercel.app/',
+    accent: 'a',
+  },
+  {
     slug: 'morphic',
     title: 'Morphic — Text-to-Anime',
     category: 'Landing Page',
