@@ -59,9 +59,11 @@ const iconFor: Record<string, string> = {
 
           <p class="form-disclaimer">
             <Icon name="mail" />
-            This form has no server backend, so it opens your email app with the message
-            pre-filled — nothing is sent silently. You can also email me directly at
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+            <span>
+              This form has no server backend, so it opens your email app with the message
+              pre-filled — nothing is sent silently. You can also email me directly at
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+            </span>
           </p>
         </form>
       </div>
@@ -222,9 +224,15 @@ const iconFor: Record<string, string> = {
     align-items: flex-start;
     gap: 0.6rem;
     font-size: 0.85rem;
+    line-height: 1.55;
     color: var(--muted);
     padding-top: 1rem;
     border-top: 1px solid var(--line);
+  }
+  /* The text (with its inline link) lives in one span so it flows normally
+     beside the icon; min-width:0 lets it shrink inside the flex row. */
+  .form-disclaimer > span {
+    min-width: 0;
   }
   /* :global() so it reaches the SVG rendered by the Icon component. */
   .form-disclaimer :global(.icon) {
@@ -236,6 +244,7 @@ const iconFor: Record<string, string> = {
     font-weight: 400;
     text-decoration: underline;
     text-underline-offset: 2px;
+    overflow-wrap: anywhere;
   }
 
   /* Aside */
