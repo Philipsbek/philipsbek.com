@@ -1,0 +1,88 @@
+---
+import Icon from './Icon.astro';
+import { contact } from '../data/site.js';
+
+// Build a wa.me link with a prefilled message from the central contact data.
+const href = `${contact.whatsappUrl}?text=${encodeURIComponent(contact.whatsappMessage)}`;
+---
+<a
+  class="wa-fab"
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chat with Philips on WhatsApp"
+>
+  <span class="wa-fab__label" aria-hidden="true">Chat on WhatsApp</span>
+  <span class="wa-fab__btn">
+    <Icon name="whatsapp" />
+  </span>
+</a>
+
+<style>
+  .wa-fab {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: 95;
+    display: inline-block;
+  }
+  .wa-fab__btn {
+    --icon-size: 26px;
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--color-obsidian);
+    border: 1px solid var(--color-graphite);
+    color: var(--color-mist);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s var(--ease), background 0.2s var(--ease),
+      border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .wa-fab:hover .wa-fab__btn,
+  .wa-fab:focus-visible .wa-fab__btn {
+    transform: translateY(-2px);
+    background: var(--color-graphite);
+    border-color: var(--color-smoke);
+    color: var(--color-paper);
+  }
+
+  /* Tooltip label that slides out on hover / focus. */
+  .wa-fab__label {
+    position: absolute;
+    right: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    white-space: nowrap;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: var(--color-carbon);
+    border: 1px solid var(--color-graphite);
+    color: var(--color-mist);
+    font-size: 0.82rem;
+    box-shadow: var(--shadow-sm);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  }
+  .wa-fab:hover .wa-fab__label,
+  .wa-fab:focus-visible .wa-fab__label {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wa-fab__btn,
+    .wa-fab__label {
+      transition: none;
+    }
+  }
+
+  /* Hide the tooltip on small screens (touch — no hover). */
+  @media (max-width: 640px) {
+    .wa-fab__label {
+      display: none;
+    }
+  }
+</style>

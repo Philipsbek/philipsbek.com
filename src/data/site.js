@@ -31,6 +31,8 @@ export const contact = {
   // Displayed for humans; `whatsappUrl` is the tappable link.
   phoneDisplay: '+60 17-981 2010',
   whatsappUrl: 'https://wa.me/60179812010',
+  // Prefilled text for the floating WhatsApp button (edit freely).
+  whatsappMessage: "Hi Philips! I found your portfolio and I'd like to talk about a project.",
   location: 'Kuala Lumpur & Selangor, Malaysia',
 };
 

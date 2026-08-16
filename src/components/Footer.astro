@@ -189,8 +189,9 @@ const iconFor: Record<string, string> = {
   .to-top {
     --icon-size: 19px;
     position: fixed;
-    right: clamp(1rem, 3vw, 2rem);
-    bottom: clamp(1rem, 3vw, 2rem);
+    /* Sits directly above the floating WhatsApp button (54px + gap). */
+    right: calc(clamp(1rem, 3vw, 2rem) + 5px);
+    bottom: calc(clamp(1rem, 3vw, 2rem) + 66px);
     z-index: 90;
     width: 44px;
     height: 44px;
