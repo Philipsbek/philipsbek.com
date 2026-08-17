@@ -16,6 +16,7 @@ interface Project {
   title: string;
   category: string;
   placeholder?: boolean;
+  neon?: boolean;
   image?: string;
   overview: string;
   role: string;
@@ -34,7 +35,7 @@ const hasLink = project.url && project.url !== '#';
 const artKind = artForCategory[project.category] ?? 'default';
 ---
 <article
-  class="project-card card reveal"
+  class:list={['project-card', 'card', 'reveal', { 'project-card--neon': project.neon }]}
   data-category={project.category}
   style={`--reveal-delay: ${delay}ms`}
 >
@@ -92,6 +93,34 @@ const artKind = artForCategory[project.category] ?? 'default';
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: var(--line-strong);
+  }
+
+  /* Neon glowing border (opt-in per project via `neon: true`). */
+  .project-card--neon {
+    --neon: #ff2d95; /* rgb(255, 45, 149) — change to recolour the glow */
+    border-color: var(--neon);
+    box-shadow: 0 0 0 1px var(--neon), 0 0 9px rgba(255, 45, 149, 0.55),
+      0 0 22px rgba(255, 45, 149, 0.4), 0 0 46px rgba(255, 45, 149, 0.22);
+    animation: neon-pulse 2.6s ease-in-out infinite;
+  }
+  .project-card--neon:hover {
+    border-color: var(--neon);
+  }
+  @keyframes neon-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 1px var(--neon), 0 0 6px rgba(255, 45, 149, 0.5),
+        0 0 16px rgba(255, 45, 149, 0.32), 0 0 34px rgba(255, 45, 149, 0.18);
+    }
+    50% {
+      box-shadow: 0 0 0 1px var(--neon), 0 0 12px rgba(255, 45, 149, 0.75),
+        0 0 30px rgba(255, 45, 149, 0.5), 0 0 58px rgba(255, 45, 149, 0.3);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-card--neon {
+      animation: none;
+    }
   }
 
   .project-thumb {

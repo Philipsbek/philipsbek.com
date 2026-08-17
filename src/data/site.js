@@ -226,6 +226,7 @@ export const projects = [
     title: 'Cards Against Humanity',
     category: 'Landing Page',
     placeholder: false,
+    neon: true, // give this card a neon glowing border
     image: '/projects/cards-against-humanity.jpg',
     overview:
       'A bold, high-contrast marketing site for the notorious party game — scattered-card visuals, punchy typography and an interactive “play a hand” demo.',
