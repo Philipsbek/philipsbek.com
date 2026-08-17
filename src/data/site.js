@@ -222,6 +222,54 @@ export const services = [
  */
 export const projects = [
   {
+    slug: 'cards-against-humanity',
+    title: 'Cards Against Humanity',
+    category: 'Landing Page',
+    placeholder: false,
+    image: '/projects/cards-against-humanity.jpg',
+    overview:
+      'A bold, high-contrast marketing site for the notorious party game — scattered-card visuals, punchy typography and an interactive “play a hand” demo.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'Vercel'],
+    challenge: 'Capture the game’s irreverent tone while keeping the page crisp, fast and genuinely fun to click.',
+    delivered:
+      'A responsive landing page with animated card stacks, a step-by-step explainer and a playable demo hand — deployed on Vercel.',
+    url: 'https://design-cards-against-humanity.vercel.app/',
+    accent: 'a',
+  },
+  {
+    slug: 'soundcloud',
+    title: 'SoundCloud — Discover UI',
+    category: 'Web App UI',
+    placeholder: false,
+    image: '/projects/soundcloud.jpg',
+    overview:
+      'A dark, media-first music-discovery interface — trending genres, a Top 50 chart, artists to watch and curated playlists in a dense, cover-art-led grid.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'Vercel'],
+    challenge: 'Organise a lot of music content into a clean, scannable streaming interface where the artwork leads.',
+    delivered:
+      'A responsive streaming discovery page with genre tiles, ranked charts, artist cards and playlists in an image-first layout — deployed on Vercel.',
+    url: 'https://design-sound-cloud.vercel.app/',
+    accent: 'b',
+  },
+  {
+    slug: 'cora',
+    title: 'Cora — AI Email Assistant',
+    category: 'Landing Page',
+    placeholder: false,
+    image: '/projects/cora.jpg',
+    overview:
+      'A calm, editorial landing page for an AI email assistant that triages your inbox and writes daily summaries — led by a dreamy sky illustration and founder testimonials.',
+    role: 'Design & front-end (vibe-coded with Claude)',
+    tools: ['Vibe coding (Claude)', 'Responsive design', 'Vercel'],
+    challenge: 'Make an AI productivity tool feel calm and trustworthy rather than busy or hypey.',
+    delivered:
+      'A responsive marketing site with an atmospheric hero, a scrolling testimonial wall and clear sign-up calls to action — deployed on Vercel.',
+    url: 'https://design-cora.vercel.app/',
+    accent: 'c',
+  },
+  {
     slug: 'klinik-pergigian-kita',
     title: 'Klinik Pergigian Kita',
     category: 'Business Website',
