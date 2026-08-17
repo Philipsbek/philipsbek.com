@@ -32,22 +32,34 @@ const isActive = (href: string) => {
       </ul>
     </nav>
 
-    <div class="site-header__cta">
-      <a href="/contact" class="btn btn--light btn--sm">
-        Let's talk <Icon name="arrow-right" />
-      </a>
-    </div>
+    <div class="site-header__actions">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme">
+        <Icon name="sun" class="theme-toggle__sun" />
+        <Icon name="moon" class="theme-toggle__moon" />
+      </button>
+      <button class="cmd-trigger" type="button" data-command-trigger aria-label="Open command menu">
+        <Icon name="search" />
+        <span class="cmd-trigger__text">Search</span>
+        <kbd class="cmd-trigger__kbd" data-cmdk-kbd>⌘K</kbd>
+      </button>
 
-    <button
-      class="nav-toggle"
-      data-nav-toggle
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Open menu"
-    >
-      <Icon name="menu" class="nav-toggle__open" />
-      <Icon name="close" class="nav-toggle__close" />
-    </button>
+      <div class="site-header__cta">
+        <a href="/contact" class="btn btn--light btn--sm">
+          Let's talk <Icon name="arrow-right" />
+        </a>
+      </div>
+
+      <button
+        class="nav-toggle"
+        data-nav-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <Icon name="menu" class="nav-toggle__open" />
+        <Icon name="close" class="nav-toggle__close" />
+      </button>
+    </div>
   </div>
 
   <!-- Mobile menu -->
@@ -138,7 +150,7 @@ const isActive = (href: string) => {
   }
   .site-nav__link:hover {
     color: var(--color-paper);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--glass-bg);
   }
   .site-nav__link.is-active {
     color: var(--color-paper);
@@ -157,6 +169,63 @@ const isActive = (href: string) => {
   .btn--sm {
     padding: 0.6rem 1.1rem;
     font-size: 0.9rem;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .theme-toggle {
+    --icon-size: 18px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    background: transparent;
+    border: 1px solid var(--color-graphite);
+    border-radius: 8px;
+    color: var(--color-fog);
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .theme-toggle:hover {
+    border-color: var(--color-smoke);
+    color: var(--color-mist);
+  }
+  .cmd-trigger {
+    --icon-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.7rem;
+    background: transparent;
+    border: 1px solid var(--color-graphite);
+    border-radius: 8px;
+    color: var(--color-fog);
+    font-size: 0.85rem;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .cmd-trigger:hover {
+    border-color: var(--color-smoke);
+    color: var(--color-mist);
+  }
+  .cmd-trigger__kbd {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-fog);
+    background: var(--glass-bg);
+    border: 1px solid var(--color-graphite);
+    border-radius: 5px;
+    padding: 0.05rem 0.35rem;
+  }
+  @media (max-width: 860px) {
+    .cmd-trigger {
+      padding: 0.5rem;
+    }
+    .cmd-trigger__text,
+    .cmd-trigger__kbd {
+      display: none;
+    }
   }
 
   .nav-toggle {
@@ -201,7 +270,10 @@ const isActive = (href: string) => {
     border-bottom: 1px solid var(--line);
   }
   .mobile-menu__link.is-active {
-    color: var(--accent);
+    color: var(--color-paper);
+    text-decoration: underline;
+    text-decoration-color: var(--color-acid-lime);
+    text-underline-offset: 4px;
   }
   .mobile-menu__cta {
     width: 100%;
@@ -260,4 +332,45 @@ const isActive = (href: string) => {
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ---- Animated light/dark theme toggle --------------------------------
+  const applyTheme = (theme: string) => {
+    if (theme === 'light') document.documentElement.dataset.theme = 'light';
+    else document.documentElement.removeAttribute('data-theme');
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {}
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#ffffff' : '#08090a');
+    document.dispatchEvent(new CustomEvent('themechange'));
+  };
+  const currentTheme = () =>
+    document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+
+  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const next = currentTheme() === 'dark' ? 'light' : 'dark';
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const start = (document as any).startViewTransition?.bind(document);
+      if (!start || reduced) {
+        applyTheme(next);
+        return;
+      }
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      document.documentElement.classList.add('theme-vt');
+      const vt = start(() => applyTheme(next));
+      vt.ready.then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`],
+          },
+          { duration: 480, easing: 'ease-in-out', pseudoElement: '::view-transition-new(root)' }
+        );
+      });
+      vt.finished.finally(() => document.documentElement.classList.remove('theme-vt'));
+    });
+  });
 </script>

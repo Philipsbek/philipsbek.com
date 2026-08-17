@@ -24,6 +24,10 @@ export const site = {
   // (or update this path). Used on the About page and the home hero card.
   photo: '/images/philips-bek.jpg',
   photoAlt: 'Philips Bek at his Sunway University graduation',
+  // Optional looping background video for the home hero card. Drop a file at
+  // public/videos/hero.mp4 and set this to '/videos/hero.mp4' to use it;
+  // leave empty to use the built-in animated particle background instead.
+  heroVideo: '',
 };
 
 export const contact = {
@@ -243,6 +247,7 @@ export const projects = [
     title: 'SoundCloud — Discover UI',
     category: 'Web App UI',
     placeholder: false,
+    neon: true,
     image: '/projects/soundcloud.jpg',
     overview:
       'A dark, media-first music-discovery interface — trending genres, a Top 50 chart, artists to watch and curated playlists in a dense, cover-art-led grid.',
@@ -259,6 +264,7 @@ export const projects = [
     title: 'Cora — AI Email Assistant',
     category: 'Landing Page',
     placeholder: false,
+    neon: true,
     image: '/projects/cora.jpg',
     overview:
       'A calm, editorial landing page for an AI email assistant that triages your inbox and writes daily summaries — led by a dreamy sky illustration and founder testimonials.',
@@ -307,6 +313,7 @@ export const projects = [
     title: 'Peikar — Superhost Stays',
     category: 'Landing Page',
     placeholder: false,
+    neon: true,
     // image: '/projects/peikar.jpg', // TODO: add screenshot when reachable
     overview:
       'An Airbnb-style showcase for a Kuantan Superhost’s 13 vacation homes — property cards with ratings, a host profile and quick chat-to-book links.',
@@ -323,6 +330,7 @@ export const projects = [
     title: 'MekaVerse — Digital Art Gallery',
     category: 'Landing Page',
     placeholder: false,
+    neon: true,
     image: '/projects/mekaverse.jpg',
     overview:
       'A stark, monochrome showcase for a 10,000-piece mecha digital-art collection — a full-bleed black gallery where only the artwork carries colour, with live collection stats and a Web3 mint flow.',
@@ -339,6 +347,7 @@ export const projects = [
     title: 'Morphic — Text-to-Anime',
     category: 'Landing Page',
     placeholder: false,
+    neon: true,
     image: '/projects/morphic.jpg',
     overview:
       'A cinematic, dark-mode marketing site for an AI tool that turns a single line of story into cel-shaded anime — key visuals, consistent characters and animated cuts.',
@@ -355,6 +364,7 @@ export const projects = [
     title: 'Pop Site — Site Builder',
     category: 'Landing Page',
     placeholder: false,
+    neon: true,
     image: '/projects/pop-site.jpg',
     overview:
       'A bold, editorial marketing site for a one-page “link-in-bio” website builder — monumental type, a single blue accent and lively product mockups.',

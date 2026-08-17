@@ -95,32 +95,49 @@ const artKind = artForCategory[project.category] ?? 'default';
     border-color: var(--line-strong);
   }
 
-  /* Neon glowing border (opt-in per project via `neon: true`). */
+  /* Thin rainbow border — all colours shown at once (opt-in via `neon: true`).
+     A slim gradient ring that follows the card's rounded corners. */
   .project-card--neon {
-    --neon: #ff2d95; /* rgb(255, 45, 149) — change to recolour the glow */
-    border-color: var(--neon);
-    box-shadow: 0 0 0 1px var(--neon), 0 0 9px rgba(255, 45, 149, 0.55),
-      0 0 22px rgba(255, 45, 149, 0.4), 0 0 46px rgba(255, 45, 149, 0.22);
-    animation: neon-pulse 2.6s ease-in-out infinite;
+    border-color: transparent;
   }
   .project-card--neon:hover {
-    border-color: var(--neon);
+    border-color: transparent;
   }
-  @keyframes neon-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 1px var(--neon), 0 0 6px rgba(255, 45, 149, 0.5),
-        0 0 16px rgba(255, 45, 149, 0.32), 0 0 34px rgba(255, 45, 149, 0.18);
-    }
-    50% {
-      box-shadow: 0 0 0 1px var(--neon), 0 0 12px rgba(255, 45, 149, 0.75),
-        0 0 30px rgba(255, 45, 149, 0.5), 0 0 58px rgba(255, 45, 149, 0.3);
-    }
+  .project-card--neon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    border-radius: inherit;
+    padding: 1.5px; /* line thickness */
+    background: conic-gradient(
+      from 0deg,
+      #ffc9de,
+      #cfe3ff,
+      #fdf3b0,
+      #d3f3d0,
+      #ffd0e6,
+      #ffc9de
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .project-card--neon {
-      animation: none;
-    }
+  /* Soft pastel gradient on the category tag, with dark text for contrast. */
+  .project-card--neon .project-meta .tag {
+    background: linear-gradient(
+      105deg,
+      #ffc9de,
+      #cfe3ff,
+      #fdf3b0,
+      #d3f3d0,
+      #ffd0e6
+    );
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #16181d;
+    font-weight: 500;
   }
 
   .project-thumb {

@@ -37,7 +37,7 @@ const homeServices = services.slice(0, 4);
           {site.role}
         </p>
         <h1 class="hero__title reveal" style="--reveal-delay: 80ms">
-          I build modern websites and <span class="accent-text">smarter</span> digital experiences.
+          I build modern websites and <span class="hero__rotate"><span class="hero__rotate-inner" data-rotate>smarter</span></span> digital experiences.
         </h1>
         <p class="hero__intro lead reveal" style="--reveal-delay: 160ms">
           I’m {site.name.split(' ')[0]}, a web and WordPress developer in {site.location}. I take
@@ -59,24 +59,47 @@ const homeServices = services.slice(0, 4);
       </div>
 
       <div class="hero__aside reveal" style="--reveal-delay: 200ms" aria-hidden="true">
-        <div class="hero-card">
-          <div class="hero-card__avatar">
-            <img src={site.photo} alt="" width="120" height="120" loading="lazy" />
+        <div class="hero-card" data-tilt>
+          <!-- Background FX: a looping video if provided, else an animated canvas -->
+          <div class="hero-card__fx">
+            {site.heroVideo ? (
+              <video
+                class="hero-card__video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+                aria-hidden="true"
+              >
+                <source src={site.heroVideo} type="video/mp4" />
+              </video>
+            ) : (
+              <canvas class="hero-card__canvas" data-hero-fx></canvas>
+            )}
+            <span class="hero-card__scrim"></span>
+            <span class="hero-card__sheen"></span>
           </div>
-          <div class="hero-card__lines">
-            <span class="hero-card__name">{site.name}</span>
-            <span class="hero-card__role">Web &amp; WordPress Developer</span>
-          </div>
-          <ul class="hero-card__stack">
-            <li>WordPress</li>
-            <li>Elementor</li>
-            <li>WooCommerce</li>
-            <li>Make.com</li>
-            <li>n8n</li>
-            <li>SEO</li>
-          </ul>
-          <div class="hero-card__foot">
-            <span class="dot"></span> Building from concept to launch
+
+          <div class="hero-card__content">
+            <div class="hero-card__avatar">
+              <img src={site.photo} alt="" width="120" height="120" loading="lazy" />
+            </div>
+            <div class="hero-card__lines">
+              <span class="hero-card__name">{site.name}</span>
+              <span class="hero-card__role">Web &amp; WordPress Developer</span>
+            </div>
+            <ul class="hero-card__stack">
+              <li>WordPress</li>
+              <li>Elementor</li>
+              <li>WooCommerce</li>
+              <li>Make.com</li>
+              <li>n8n</li>
+              <li>SEO</li>
+            </ul>
+            <div class="hero-card__foot">
+              <span class="dot"></span> Building from concept to launch
+            </div>
           </div>
         </div>
       </div>
@@ -88,9 +111,12 @@ const homeServices = services.slice(0, 4);
     <div class="container">
       <div class="skills-strip__inner reveal">
         <span class="skills-strip__label">Core toolkit</span>
-        <ul class="skills-strip__list">
-          {featuredSkills.map((s) => <li>{s}</li>)}
-        </ul>
+        <div class="marquee" data-marquee>
+          <ul class="marquee__track">
+            {featuredSkills.map((s) => <li>{s}</li>)}
+            {featuredSkills.map((s) => <li aria-hidden="true">{s}</li>)}
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -179,22 +205,224 @@ const homeServices = services.slice(0, 4);
 </BaseLayout>
 
 <script>
-  // Subtle pointer parallax on the hero backdrop.
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(pointer: fine)').matches;
-  const hero = document.querySelector('.hero');
-  const decor = document.querySelector('.hero__decor') as HTMLElement | null;
-  if (hero && decor && !reduce && fine) {
-    hero.addEventListener('pointermove', (e: PointerEvent) => {
-      const r = hero.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      decor.style.transform = `translate(${x * -22}px, ${y * -14}px)`;
-    });
-    hero.addEventListener('pointerleave', () => {
-      decor.style.transform = '';
-    });
+
+  // Cleanup handle for the previous home instance (view transitions re-run this).
+  let teardown: (() => void) | null = null;
+
+  function initHome() {
+    teardown?.();
+    teardown = null;
+
+    const hero = document.querySelector('.hero') as HTMLElement | null;
+    if (!hero) return; // not the home page
+
+    const cleanups: Array<() => void> = [];
+
+    // ---- Pointer parallax on the hero backdrop ----------------------------
+    const decor = hero.querySelector('.hero__decor') as HTMLElement | null;
+    if (decor && !reduce && fine) {
+      const move = (e: PointerEvent) => {
+        const r = hero.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        decor.style.transform = `translate(${x * -22}px, ${y * -14}px)`;
+      };
+      const leave = () => (decor.style.transform = '');
+      hero.addEventListener('pointermove', move);
+      hero.addEventListener('pointerleave', leave);
+      cleanups.push(() => {
+        hero.removeEventListener('pointermove', move);
+        hero.removeEventListener('pointerleave', leave);
+      });
+    }
+
+    // ---- Rotating headline word -------------------------------------------
+    const rot = document.querySelector('[data-rotate]') as HTMLElement | null;
+    if (rot && !reduce) {
+      const words = ['smarter', 'sharper', 'faster', 'bolder'];
+      let i = 0;
+      const id = setInterval(() => {
+        rot.style.opacity = '0';
+        rot.style.transform = 'translateY(-0.3em)';
+        setTimeout(() => {
+          i = (i + 1) % words.length;
+          rot.textContent = words[i];
+          rot.style.transform = 'translateY(0.3em)';
+          requestAnimationFrame(() => {
+            rot.style.opacity = '1';
+            rot.style.transform = 'translateY(0)';
+          });
+        }, 300);
+      }, 2800);
+      cleanups.push(() => clearInterval(id));
+    }
+
+    // ---- Hero card: 3D tilt + pointer sheen -------------------------------
+    const card = document.querySelector('[data-tilt]') as HTMLElement | null;
+    if (card && !reduce && fine) {
+      const MAX = 7;
+      const move = (e: PointerEvent) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        card.style.transform = `rotateX(${(0.5 - py) * MAX}deg) rotateY(${(px - 0.5) * MAX}deg)`;
+        card.style.setProperty('--sx', `${px * 100}%`);
+        card.style.setProperty('--sy', `${py * 100}%`);
+      };
+      const leave = () => (card.style.transform = '');
+      card.addEventListener('pointermove', move);
+      card.addEventListener('pointerleave', leave);
+      cleanups.push(() => {
+        card.removeEventListener('pointermove', move);
+        card.removeEventListener('pointerleave', leave);
+      });
+    }
+
+    // ---- Hero card: animated particle-network background ------------------
+    const canvas = document.querySelector('[data-hero-fx]') as HTMLCanvasElement | null;
+    if (canvas) {
+      const host = canvas.parentElement as HTMLElement;
+      const ctx = canvas.getContext('2d');
+      const ACCENT = [228, 242, 34];
+      let w = 0, h = 0, dpr = 1, raf = 0;
+      let particles: { x: number; y: number; vx: number; vy: number }[] = [];
+      const pointer = { x: -999, y: -999 };
+      // Particle colour follows the theme (dark on light, white on dark).
+      const inkOf = () =>
+        getComputedStyle(document.documentElement).getPropertyValue('--fx-ink').trim() ||
+        '255, 255, 255';
+      let fxInk = inkOf();
+      const onTheme = () => (fxInk = inkOf());
+      document.addEventListener('themechange', onTheme);
+      cleanups.push(() => document.removeEventListener('themechange', onTheme));
+
+      const resize = () => {
+        const r = host.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = r.width;
+        h = r.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const count = Math.max(26, Math.min(46, Math.round((w * h) / 5200)));
+        particles = Array.from({ length: count }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+        }));
+      };
+
+      const draw = () => {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, w, h);
+        const t = Date.now() / 4200;
+        const gx = w * (0.5 + Math.cos(t) * 0.3);
+        const gy = h * (0.35 + Math.sin(t * 0.8) * 0.25);
+        const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(w, h) * 0.7);
+        glow.addColorStop(0, 'rgba(228,242,34,0.05)');
+        glow.addColorStop(1, 'rgba(228,242,34,0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, w, h);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+        }
+        for (let i = 0; i < particles.length; i++) {
+          const a = particles[i];
+          for (let j = i + 1; j < particles.length; j++) {
+            const b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < 92 * 92) {
+              const o = (1 - Math.sqrt(d2) / 92) * 0.22;
+              ctx.strokeStyle = `rgba(${fxInk},${o})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+          const pdx = a.x - pointer.x, pdy = a.y - pointer.y;
+          const pd2 = pdx * pdx + pdy * pdy;
+          if (pd2 < 120 * 120) {
+            const o = (1 - Math.sqrt(pd2) / 120) * 0.5;
+            ctx.strokeStyle = `rgba(${ACCENT[0]},${ACCENT[1]},${ACCENT[2]},${o})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(pointer.x, pointer.y);
+            ctx.stroke();
+          }
+        }
+        for (const p of particles) {
+          ctx.fillStyle = `rgba(${fxInk},0.55)`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        raf = requestAnimationFrame(draw);
+      };
+
+      resize();
+      if (reduce) {
+        draw();
+        cancelAnimationFrame(raf);
+      } else {
+        raf = requestAnimationFrame(draw);
+      }
+
+      const ro = new ResizeObserver(() => resize());
+      ro.observe(host);
+
+      let io: IntersectionObserver | null = null;
+      if ('IntersectionObserver' in window && !reduce) {
+        io = new IntersectionObserver((entries) => {
+          for (const en of entries) {
+            if (en.isIntersecting) {
+              if (!raf) raf = requestAnimationFrame(draw);
+            } else {
+              cancelAnimationFrame(raf);
+              raf = 0;
+            }
+          }
+        });
+        io.observe(canvas);
+      }
+
+      if (card && fine) {
+        const pm = (e: PointerEvent) => {
+          const r = canvas.getBoundingClientRect();
+          pointer.x = e.clientX - r.left;
+          pointer.y = e.clientY - r.top;
+        };
+        const pl = () => (pointer.x = pointer.y = -999);
+        card.addEventListener('pointermove', pm);
+        card.addEventListener('pointerleave', pl);
+        cleanups.push(() => {
+          card.removeEventListener('pointermove', pm);
+          card.removeEventListener('pointerleave', pl);
+        });
+      }
+
+      cleanups.push(() => {
+        cancelAnimationFrame(raf);
+        ro.disconnect();
+        io?.disconnect();
+      });
+    }
+
+    teardown = () => cleanups.forEach((fn) => fn());
   }
+
+  initHome();
 </script>
 
 <style>
@@ -237,6 +465,32 @@ const homeServices = services.slice(0, 4);
     line-height: 1.03;
     margin-top: 1.25rem;
     letter-spacing: -0.03em;
+  }
+  /* Rotating headline word */
+  .hero__rotate {
+    position: relative;
+    display: inline-block;
+  }
+  .hero__rotate-inner {
+    display: inline-block;
+    color: var(--color-paper);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .hero__rotate::after {
+    content: '';
+    position: absolute;
+    left: 0.02em;
+    right: 0.02em;
+    bottom: 0.02em;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--color-acid-lime);
+    opacity: 0.85;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__rotate-inner {
+      transition: none;
+    }
   }
   .hero__intro {
     margin-top: 1.5rem;
@@ -283,22 +537,77 @@ const homeServices = services.slice(0, 4);
   .hero__aside {
     display: flex;
     justify-content: center;
+    perspective: 1000px;
   }
   .hero-card {
+    position: relative;
     width: 100%;
     max-width: 360px;
-    background: var(--surface);
+    min-height: 340px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 1.75rem;
+    background: var(--color-carbon);
     box-shadow: var(--shadow-lg);
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    transition: border-color 0.3s var(--ease);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: border-color 0.3s var(--ease), transform 0.35s var(--ease),
+      box-shadow 0.35s var(--ease);
+    will-change: transform;
   }
   .hero-card:hover {
     border-color: var(--color-smoke);
+    box-shadow: var(--shadow-lg), 0 0 44px -10px rgba(228, 242, 34, 0.18);
+  }
+
+  /* Background FX layer */
+  .hero-card__fx {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+  .hero-card__canvas,
+  .hero-card__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .hero-card__video {
+    object-fit: cover;
+  }
+  .hero-card__scrim {
+    position: absolute;
+    inset: 0;
+    background: var(--card-scrim);
+  }
+  .hero-card__sheen {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      55% 45% at var(--sx, 50%) var(--sy, 0%),
+      rgba(228, 242, 34, 0.12),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.35s var(--ease);
+    pointer-events: none;
+  }
+  .hero-card:hover .hero-card__sheen {
+    opacity: 1;
+  }
+
+  /* Content sits above the FX and pops forward under the 3D tilt */
+  .hero-card__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding: 1.75rem;
+    transform: translateZ(28px);
   }
   .hero-card__avatar {
     width: 60px;
@@ -332,16 +641,22 @@ const homeServices = services.slice(0, 4);
     flex-wrap: wrap;
     gap: 0.4rem;
     padding-top: 1.1rem;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--glass-border);
   }
   .hero-card__stack li {
     font-size: 0.78rem;
     font-weight: 500;
-    color: var(--ink-soft);
-    background: var(--paper-2);
-    border: 1px solid var(--line);
+    color: var(--color-mist);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     padding: 0.3rem 0.6rem;
     border-radius: 999px;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .hero-card__stack li:hover {
+    background: var(--glass-border);
+    border-color: var(--color-smoke);
   }
   .hero-card__foot {
     display: flex;
@@ -365,29 +680,68 @@ const homeServices = services.slice(0, 4);
   .skills-strip__inner {
     display: flex;
     align-items: center;
-    gap: clamp(1rem, 3vw, 2.5rem);
-    padding-block: 1.5rem;
-    flex-wrap: wrap;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding-block: 1.4rem;
   }
   .skills-strip__label {
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--muted);
     white-space: nowrap;
+    flex-shrink: 0;
   }
-  .skills-strip__list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem 1.75rem;
-  }
-  .skills-strip__list li {
+  /* Infinite marquee */
+  .marquee {
     position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 34s linear infinite;
+  }
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+  .marquee__track li {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+    white-space: nowrap;
     font-family: var(--font-display);
     font-weight: 500;
     font-size: 1.02rem;
     color: var(--ink-soft);
+  }
+  .marquee__track li::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-smoke);
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      -webkit-mask: none;
+      mask: none;
+      overflow-x: auto;
+    }
+    .marquee__track {
+      animation: none;
+    }
   }
 
   /* Section head row */

@@ -20,6 +20,14 @@ const showFilters = projects.length >= 4;
 
   <section class="section section--tight">
     <div class="container">
+      <div class="legend reveal">
+        <span class="legend__swatch" aria-hidden="true"></span>
+        <p class="legend__text">
+          <span class="legend__label">Style</span>
+          Cards with a soft pastel border are <strong>design concepts vibe-coded with Claude</strong>. The rest are live client builds.
+        </p>
+      </div>
+
       {showFilters && (
         <div class="filters reveal" role="tablist" aria-label="Filter projects by category">
           {projectCategories.map((cat, i) => (
@@ -49,6 +57,72 @@ const showFilters = projects.length >= 4;
 </BaseLayout>
 
 <style>
+  /* Legend / tip box explaining the pastel "Style" border. */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1.5rem;
+    background: var(--color-carbon);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+  .legend__swatch {
+    position: relative;
+    flex-shrink: 0;
+    width: 40px;
+    height: 26px;
+    border-radius: 6px;
+    background: var(--color-void);
+  }
+  .legend__swatch::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from 0deg,
+      #ffc9de,
+      #cfe3ff,
+      #fdf3b0,
+      #d3f3d0,
+      #ffd0e6,
+      #ffc9de
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .legend__text {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .legend__label {
+    display: inline-block;
+    margin-right: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: #16181d;
+    background: linear-gradient(105deg, #ffc9de, #cfe3ff, #fdf3b0, #d3f3d0, #ffd0e6);
+    vertical-align: middle;
+  }
+  .legend__text strong {
+    color: var(--color-mist);
+    font-weight: 500;
+  }
+  @media (max-width: 480px) {
+    .legend {
+      align-items: flex-start;
+    }
+  }
+
   .filters {
     display: flex;
     flex-wrap: wrap;
@@ -88,26 +162,29 @@ const showFilters = projects.length >= 4;
 </style>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-  const cards = document.querySelectorAll<HTMLElement>('[data-project-grid] .project-card');
-  const noResults = document.querySelector<HTMLElement>('[data-no-results]');
+  function initFilters() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    if (!buttons.length) return;
+    const cards = document.querySelectorAll<HTMLElement>('[data-project-grid] .project-card');
+    const noResults = document.querySelector<HTMLElement>('[data-no-results]');
 
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      buttons.forEach((b) => {
-        const active = b === btn;
-        b.classList.toggle('is-active', active);
-        b.setAttribute('aria-selected', String(active));
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        buttons.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', String(active));
+        });
+        let visible = 0;
+        cards.forEach((card) => {
+          const match = filter === 'All' || card.dataset.category === filter;
+          card.classList.toggle('is-hidden', !match);
+          if (match) visible++;
+        });
+        if (noResults) noResults.hidden = visible !== 0;
       });
-
-      let visible = 0;
-      cards.forEach((card) => {
-        const match = filter === 'All' || card.dataset.category === filter;
-        card.classList.toggle('is-hidden', !match);
-        if (match) visible++;
-      });
-      if (noResults) noResults.hidden = visible !== 0;
     });
-  });
+  }
+  initFilters();
 </script>

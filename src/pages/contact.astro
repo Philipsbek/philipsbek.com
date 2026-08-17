@@ -346,11 +346,12 @@ const iconFor: Record<string, string> = {
 </style>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
-  const status = document.querySelector<HTMLElement>('[data-form-status]');
-  const CONTACT_EMAIL = 'philipsbekwork@gmail.com';
+  function initContact() {
+    const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+    const status = document.querySelector<HTMLElement>('[data-form-status]');
+    const CONTACT_EMAIL = 'philipsbekwork@gmail.com';
+    if (!form) return;
 
-  if (form) {
     const fields = ['name', 'email', 'subject', 'message'] as const;
 
     const setError = (name: string, msg: string) => {
@@ -427,4 +428,5 @@ const iconFor: Record<string, string> = {
       window.location.href = mailto;
     });
   }
+  initContact();
 </script>

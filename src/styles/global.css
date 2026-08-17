@@ -37,12 +37,21 @@
 
   --accent: var(--color-acid-lime);
   --accent-hover: #eef85a;
-  --accent-ink: var(--color-void);   /* text on the lime button */
+  --accent-ink: #0a0b0d; /* text on the lime button — stays dark in both themes */
   --accent-soft: rgba(228, 242, 34, 0.10);
 
   /* "chip" surfaces for icon tiles etc. */
   --chip-bg: rgba(255, 255, 255, 0.03);
   --chip-fg: var(--color-mist);
+
+  /* Translucent "glass" surfaces + the hero-card scrim (theme-aware). */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --fx-ink: 255, 255, 255; /* particle colour (rgb) */
+  --card-scrim:
+    radial-gradient(115% 75% at 50% -5%, rgba(8, 9, 10, 0.15), transparent 55%),
+    linear-gradient(180deg, rgba(8, 9, 10, 0.35) 0%, rgba(8, 9, 10, 0.68) 58%, rgba(8, 9, 10, 0.92) 100%);
+  color-scheme: dark;
 
   /* Dark panels (footer / CTA / principles) — now part of the same family */
   --navy: var(--color-carbon);
@@ -70,6 +79,42 @@
   --shadow-lg: rgba(8, 9, 10, 0.6) 0 20px 50px -20px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------ Light theme --------------------------- */
+/* Only the raw --color-* tokens (and a few translucent surfaces) are
+   overridden; every semantic token resolves through them automatically. */
+:root[data-theme='light'] {
+  --color-void: #ffffff;
+  --color-carbon: #f6f7f9;
+  --color-obsidian: #eef1f4;
+  --color-graphite: #e3e6ea;
+  --color-smoke: #ccd1d8;
+  --color-ash: #99a0ab;
+  --color-fog: #5c636f;
+  --color-mist: #333b47;
+  --color-bone: #1f2530;
+  --color-paper: #0b0d11;
+
+  --accent-hover: #d3e00a;
+  --navy-line: rgba(0, 0, 0, 0.08);
+
+  --chip-bg: rgba(15, 20, 28, 0.04);
+  --glass-bg: rgba(15, 20, 28, 0.05);
+  --glass-border: rgba(15, 20, 28, 0.12);
+  --fx-ink: 30, 36, 46;
+  --card-scrim: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(246, 247, 249, 0.55) 58%,
+    rgba(246, 247, 249, 0.86) 100%
+  );
+
+  --shadow-sm: rgba(15, 23, 42, 0.06) 0 1px 2px 0, rgba(15, 23, 42, 0.06) 0 2px 6px -2px;
+  --shadow-md: rgba(15, 23, 42, 0.1) 0 10px 30px -12px;
+  --shadow-lg: rgba(15, 23, 42, 0.16) 0 20px 50px -20px;
+
+  color-scheme: light;
 }
 
 /* ------------------------------ Reset-ish ------------------------------ */
@@ -184,7 +229,7 @@ ol {
   top: -100px;
   z-index: 1000;
   background: var(--color-acid-lime);
-  color: var(--color-void);
+  color: var(--accent-ink);
   padding: 0.65rem 1rem;
   border-radius: 6px;
   font-weight: 510;
@@ -277,7 +322,7 @@ ol {
   --icon-size: 0.95rem;
   box-sizing: content-box;
   color: var(--color-mist);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   border: 1px solid var(--color-graphite);
   border-radius: 50%;
   padding: 5px;
@@ -306,7 +351,7 @@ ol {
 }
 .btn--primary {
   background: var(--color-acid-lime);
-  color: var(--color-void);
+  color: var(--accent-ink);
   box-shadow: rgba(0, 0, 0, 0.1) 0 5px 2px, rgba(0, 0, 0, 0.2) 0 1px 1px;
 }
 .btn--primary:hover {
@@ -319,7 +364,7 @@ ol {
 }
 .btn--ghost:hover {
   border-color: var(--color-smoke);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--glass-bg);
 }
 .btn--on-navy {
   background: transparent;
@@ -327,8 +372,8 @@ ol {
   border-color: var(--navy-line);
 }
 .btn--on-navy:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--glass-bg);
+  border-color: var(--color-smoke);
 }
 .btn--light {
   background: var(--color-paper);
@@ -382,7 +427,7 @@ ol {
   opacity: 0;
   background: radial-gradient(
     240px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(255, 255, 255, 0.07),
+    rgba(var(--fx-ink), 0.07),
     transparent 55%
   );
   transition: opacity 0.3s var(--ease);
@@ -400,7 +445,7 @@ ol {
   font-weight: 400;
   letter-spacing: 0;
   color: var(--color-fog);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   border: 1px solid transparent;
   border-radius: 5px;
   white-space: nowrap;
@@ -450,6 +495,31 @@ ol {
 .reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* Native scroll-driven reveal — modern browsers animate this purely from the
+   element's position in the viewport (no JS). JS observer is the fallback. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 2% cover 26%;
+    }
+  }
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -509,6 +579,22 @@ ol {
   pointer-events: none;
   will-change: transform;
 }
+/* Native scroll-driven version — the bar is driven by the document scroll
+   timeline with no JS. JS is the fallback below when this isn't supported. */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress-grow linear;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes scroll-progress-grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
 
 /* Magnetic buttons ease back to place when the pointer leaves (JS sets the
    inline transform on move). */
@@ -526,4 +612,29 @@ ol {
   .scroll-progress {
     display: none;
   }
+}
+
+/* ------------------------------ Theme toggle ---------------------------- */
+.theme-toggle__moon {
+  display: none;
+}
+:root[data-theme='light'] .theme-toggle__sun {
+  display: none;
+}
+:root[data-theme='light'] .theme-toggle__moon {
+  display: block;
+}
+
+/* Circular reveal for the theme toggle: the whole page is one `root` snapshot
+   and the new theme is revealed with a clip-path circle animated from JS. */
+html.theme-vt::view-transition-old(root),
+html.theme-vt::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.theme-vt::view-transition-new(root) {
+  z-index: 1;
+}
+html.theme-vt::view-transition-old(root) {
+  z-index: 0;
 }
