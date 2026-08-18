@@ -13,6 +13,25 @@ import {
   languages,
   resumeUrl,
 } from '../data/site.js';
+
+const techLogos = [
+  { name: 'WordPress', icon: '/tech/wordpress.svg' },
+  { name: 'Elementor', icon: '/tech/elementor.svg' },
+  { name: 'WooCommerce', icon: '/tech/woocommerce.svg' },
+  { name: 'Figma', icon: '/tech/figma.svg' },
+  { name: 'Canva', icon: '/tech/canva.svg' },
+  { name: 'Hostinger', icon: '/tech/hostinger.svg' },
+  { name: 'Vercel', icon: '/tech/vercel.svg' },
+  { name: 'Cloudflare', icon: '/tech/cloudflare.svg' },
+  { name: 'Make', icon: '/tech/make.svg' },
+  { name: 'n8n', icon: '/tech/n8n.svg' },
+  { name: 'Airtable', icon: '/tech/airtable.svg' },
+  { name: 'VS Code', icon: '/tech/vscode.svg' },
+  { name: 'GitHub', icon: '/tech/github.svg' },
+  { name: 'WhatsApp', icon: '/tech/whatsapp.svg' },
+  { name: 'Claude', icon: '/brands/claude.svg' },
+  { name: 'Codex', icon: '/brands/codex.png' },
+];
 ---
 <BaseLayout
   title="About"
@@ -45,6 +64,26 @@ import {
           and AI-assisted coding — to see where they genuinely make a difference and where a human still
           needs to steer.
         </p>
+
+        <section class="about-tech-wall" aria-labelledby="about-tech-title">
+          <div class="about-tech-wall__head">
+            <p class="eyebrow">My toolkit</p>
+            <h2 id="about-tech-title">Technologies I work with</h2>
+          </div>
+          <ul class="about-tech-wall__grid">
+            {techLogos.map((tech, i) => (
+              <li
+                class:list={['about-tech-logo', { 'about-tech-logo--invert-light': ['Vercel', 'GitHub', 'Codex'].includes(tech.name) }]}
+                style={`--logo-delay:${i * 25}ms`}
+              >
+                <span class="about-tech-logo__mark">
+                  <img src={tech.icon} alt="" width="44" height="44" loading="lazy" />
+                </span>
+                <span>{tech.name}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
       <aside class="about-snapshot reveal" style="--reveal-delay: 100ms">
         <figure class="about-portrait">
@@ -189,6 +228,97 @@ import {
   }
   .about-intro__text > * + * {
     margin-top: 1.25rem;
+  }
+  .about-tech-wall {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .about-tech-wall__head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .about-tech-wall__head h2 {
+    max-width: 13ch;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.3vw, 1.8rem);
+    font-weight: 540;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    text-align: right;
+  }
+  .about-tech-wall__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .about-tech-logo {
+    position: relative;
+    min-width: 0;
+    min-height: 112px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    padding: 1rem 0.5rem;
+    color: var(--muted);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transition: color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+  .about-tech-logo::after {
+    content: '';
+    position: absolute;
+    inset: 0.5rem;
+    pointer-events: none;
+    background: radial-gradient(circle, var(--accent-soft), transparent 68%);
+    opacity: 0;
+    transition: opacity 0.25s var(--ease);
+  }
+  .about-tech-logo:hover {
+    color: var(--ink);
+    background: var(--glass-bg);
+  }
+  .about-tech-logo:hover::after {
+    opacity: 1;
+  }
+  .about-tech-logo__mark {
+    position: relative;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
+  }
+  .about-tech-logo:hover .about-tech-logo__mark {
+    transform: translateY(-3px) scale(1.06);
+    filter: drop-shadow(0 0 10px var(--accent-soft));
+  }
+  .about-tech-logo img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .about-tech-logo > span:last-child {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    max-width: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :global(:root[data-theme='light']) .about-tech-logo--invert-light img {
+    filter: invert(1);
   }
   .about-snapshot {
     display: flex;
@@ -428,6 +558,21 @@ import {
     }
     .snapshot {
       position: static;
+    }
+  }
+  @media (max-width: 540px) {
+    .about-tech-wall__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .about-tech-logo {
+      min-height: 100px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-tech-logo,
+    .about-tech-logo::after,
+    .about-tech-logo__mark {
+      transition: none;
     }
   }
 </style>
