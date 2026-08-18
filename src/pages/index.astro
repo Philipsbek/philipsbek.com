@@ -434,7 +434,7 @@ const homeServices = services.slice(0, 4);
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1.35fr 1fr;
+    grid-template-columns: minmax(0, 1.15fr) minmax(500px, 0.95fr);
     align-items: center;
     gap: clamp(2rem, 5vw, 4rem);
   }
@@ -525,8 +525,8 @@ const homeServices = services.slice(0, 4);
   .hero-card {
     position: relative;
     width: 100%;
-    max-width: 470px;
-    min-height: 350px;
+    max-width: 560px;
+    min-height: 430px;
     border: 0;
     background: transparent;
     overflow: visible;
@@ -540,18 +540,18 @@ const homeServices = services.slice(0, 4);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 350px;
+    min-height: 430px;
     padding: 2.5rem 0;
     transform: translateZ(24px);
   }
   .capability-card {
     position: relative;
     display: flex;
-    flex: 0 0 154px;
-    min-height: 214px;
+    flex: 0 0 190px;
+    aspect-ratio: 0.7;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.25rem;
     color: #08090a;
     background: #fbfbf8;
     border: 1px solid rgba(8, 9, 10, 0.16);
@@ -561,7 +561,7 @@ const homeServices = services.slice(0, 4);
     transition: transform 0.4s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.4s var(--ease);
   }
   .capability-card + .capability-card {
-    margin-left: -16px;
+    margin-left: -35px;
   }
   .capability-card--design {
     z-index: 1;
@@ -592,29 +592,29 @@ const homeServices = services.slice(0, 4);
   }
   .capability-card__number {
     font-family: var(--font-mono);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     line-height: 1;
   }
   .capability-card__body h2 {
     margin: 0 0 0.7rem;
     color: inherit;
-    font-size: 1.08rem;
+    font-size: 1.3rem;
     font-weight: 590;
     line-height: 1.05;
     letter-spacing: -0.025em;
   }
   .capability-card__body p {
     color: inherit;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     line-height: 1.45;
     opacity: 0.66;
   }
   .capability-card__signal {
     position: absolute;
-    top: 0.9rem;
-    right: 0.9rem;
-    width: 6px;
-    height: 6px;
+    top: 1.2rem;
+    right: 1.2rem;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 12px rgba(92, 235, 255, 0.8);
@@ -833,28 +833,29 @@ const homeServices = services.slice(0, 4);
     }
     .hero-card {
       transform: none;
-      max-width: 360px;
+      max-width: 420px;
+      min-height: 320px;
     }
     .hero-card__deck {
-      min-height: 300px;
+      min-height: 320px;
       padding-inline: 0;
     }
     .capability-card {
-      flex-basis: 124px;
-      min-height: 178px;
-      padding: 0.78rem;
+      flex-basis: clamp(112px, 35vw, 142px);
+      min-height: 0;
+      padding: clamp(0.72rem, 3vw, 0.95rem);
     }
     .capability-card + .capability-card {
-      margin-left: -18px;
+      margin-left: clamp(-24px, -5vw, -14px);
     }
     .capability-card__number {
-      font-size: 1.1rem;
+      font-size: clamp(1.1rem, 5vw, 1.35rem);
     }
     .capability-card__body h2 {
-      font-size: 0.9rem;
+      font-size: clamp(0.86rem, 3.5vw, 1rem);
     }
     .capability-card__body p {
-      font-size: 0.51rem;
+      font-size: clamp(0.48rem, 2vw, 0.56rem);
     }
     .exp-grid {
       grid-template-columns: 1fr;
