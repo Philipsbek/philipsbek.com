@@ -226,6 +226,23 @@ export const services = [
  */
 export const projects = [
   {
+    slug: 'ashetag-web-design-studio',
+    title: 'AsheTag — Web Design Studio',
+    category: 'Agency Website',
+    placeholder: false,
+    image: '/projects/ashetag.jpg',
+    overview:
+      'A conversion-focused website for a Malaysia-based web design studio offering WordPress and Elementor services to SMEs, startups and growing brands.',
+    role: 'Design & front-end (built with Claude)',
+    tools: ['Claude', 'Responsive design', 'SEO foundations', 'WhatsApp integration'],
+    challenge:
+      'Present a broad service offering clearly, establish credibility and guide prospective clients toward the right package or consultation.',
+    delivered:
+      'A responsive studio website with structured service and pricing journeys, a filterable portfolio, a Studio / AI mode switch and direct WhatsApp calls to action.',
+    url: 'https://ashetag.com/',
+    accent: 'c',
+  },
+  {
     slug: 'aer-creative-workspace',
     title: 'AER — Creative Workspace',
     category: 'AI Product Website',
