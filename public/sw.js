@@ -1,9 +1,9 @@
 // Simple offline-capable service worker (no build tooling / dependencies).
-const VERSION = 'pb-v4';
+const VERSION = 'pb-v5';
 const STATIC_CACHE = `${VERSION}-static`;
 const PAGE_CACHE = `${VERSION}-pages`;
 const OFFLINE_URL = '/offline';
-const PRECACHE = ['/', OFFLINE_URL, '/favicon.svg?v=5', '/manifest.webmanifest?v=5'];
+const PRECACHE = ['/', OFFLINE_URL, '/favicon.svg?v=6', '/manifest.webmanifest?v=6'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

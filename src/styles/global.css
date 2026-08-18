@@ -1,7 +1,7 @@
 /* ==========================================================================
    Design system — Philips Bek portfolio
    Restyled to Linear's "midnight precision instrument" aesthetic:
-   near-black surfaces, paper-white type, a single muted-periwinkle accent used
+   near-black surfaces, paper-white type, a single luminous ice-blue accent used
    sparingly, hairline borders instead of shadows, tight Inter typography.
    ========================================================================== */
 
@@ -17,7 +17,7 @@
   --color-mist: #d0d6e0;
   --color-bone: #e5e5e6;
   --color-paper: #ffffff;
-  --color-periwinkle: #8b9cff;
+  --color-ice-blue: #7dd3fc;
   --color-pulse-green: #27a644;
   --color-coral-red: #eb5757;
   --color-signal-teal: #02b8cc;
@@ -35,11 +35,11 @@
   --line: var(--color-graphite);     /* hairline borders */
   --line-strong: var(--color-smoke); /* higher-contrast edges */
 
-  --accent: var(--color-periwinkle);
-  --accent-hover: #aab6ff;
+  --accent: var(--color-ice-blue);
+  --accent-hover: #bae6fd;
   --accent-ink: #08090a;
-  --accent-soft: rgba(139, 156, 255, 0.10);
-  --accent-border: rgba(139, 156, 255, 0.28);
+  --accent-soft: rgba(125, 211, 252, 0.10);
+  --accent-border: rgba(125, 211, 252, 0.28);
 
   /* "chip" surfaces for icon tiles etc. */
   --chip-bg: rgba(255, 255, 255, 0.03);
@@ -97,7 +97,7 @@
   --color-bone: #1f2530;
   --color-paper: #0b0d11;
 
-  --accent-hover: #7185f0;
+  --accent-hover: #38bdf8;
   --navy-line: rgba(0, 0, 0, 0.08);
 
   --chip-bg: rgba(15, 20, 28, 0.04);
@@ -194,7 +194,7 @@ ol {
 }
 
 ::selection {
-  background: var(--color-periwinkle);
+  background: var(--color-ice-blue);
   color: var(--color-void);
 }
 
@@ -229,7 +229,7 @@ ol {
   left: 1rem;
   top: -100px;
   z-index: 1000;
-  background: var(--color-periwinkle);
+  background: var(--color-ice-blue);
   color: var(--accent-ink);
   padding: 0.65rem 1rem;
   border-radius: 6px;
@@ -351,7 +351,7 @@ ol {
   height: 1.02em;
 }
 .btn--primary {
-  background: var(--color-periwinkle);
+  background: var(--color-ice-blue);
   color: var(--accent-ink);
   box-shadow: rgba(0, 0, 0, 0.1) 0 5px 2px, rgba(0, 0, 0, 0.2) 0 1px 1px;
 }
@@ -574,7 +574,7 @@ ol {
   right: 0;
   height: 2px;
   z-index: 200;
-  background: var(--color-periwinkle);
+  background: var(--color-ice-blue);
   transform: scaleX(var(--p, 0));
   transform-origin: 0 50%;
   pointer-events: none;
