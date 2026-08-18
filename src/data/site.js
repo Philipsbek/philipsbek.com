@@ -226,6 +226,24 @@ export const services = [
  */
 export const projects = [
   {
+    slug: 'nova-marine',
+    title: 'Nova — Electric Marine',
+    category: 'Product Website',
+    placeholder: false,
+    neon: true,
+    image: '/projects/arc.jpg',
+    overview:
+      'A premium concept website for an electric marine brand, presenting recreational and commercial boats through cinematic imagery and restrained editorial design.',
+    role: 'Design & front-end (built with Codex)',
+    tools: ['Codex', 'Responsive design', 'Interactive prototyping', 'Vercel'],
+    challenge:
+      'Make an emerging marine technology feel credible and desirable while explaining its products and advantages without interrupting the visual experience.',
+    delivered:
+      'A responsive product showcase with an immersive full-screen hero, vessel stories, interactive feature carousel, editorial journal and newsletter experience — deployed on Vercel.',
+    url: 'https://design-arc-eight.vercel.app/',
+    accent: 'a',
+  },
+  {
     slug: 'ashetag-web-design-studio',
     title: 'AsheTag — Web Design Studio',
     category: 'Agency Website',
