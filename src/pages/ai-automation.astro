@@ -38,6 +38,61 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
     </div>
   </section>
 
+  <!-- Favourite AI coding tools -->
+  <section class="section section--tight favourites-section">
+    <div class="container">
+      <div class="favourites-head reveal">
+        <p class="eyebrow">My main favourites</p>
+        <h2 class="h2">The two I build with most.</h2>
+        <p class="muted">Claude Code and Codex are my primary AI coding partners for turning ideas into polished, working web experiences.</p>
+      </div>
+
+      <div class="favourites-grid">
+        <article class="favourite-tool favourite-tool--claude reveal">
+          <div class="favourite-tool__mark" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="presentation">
+              <g fill="currentColor">
+                <rect x="54" y="7" width="12" height="39" rx="6" />
+                <rect x="54" y="74" width="12" height="39" rx="6" />
+                <rect x="7" y="54" width="39" height="12" rx="6" />
+                <rect x="74" y="54" width="39" height="12" rx="6" />
+                <rect x="20" y="20" width="12" height="39" rx="6" transform="rotate(-45 26 39.5)" />
+                <rect x="88" y="61" width="12" height="39" rx="6" transform="rotate(-45 94 80.5)" />
+                <rect x="20" y="61" width="12" height="39" rx="6" transform="rotate(45 26 80.5)" />
+                <rect x="88" y="20" width="12" height="39" rx="6" transform="rotate(45 94 39.5)" />
+              </g>
+            </svg>
+          </div>
+          <div class="favourite-tool__copy">
+            <span class="favourite-tool__index">01</span>
+            <h3>Claude Code</h3>
+            <p>My go-to for thoughtful implementation, interface exploration and working through complex builds with strong context.</p>
+          </div>
+        </article>
+
+        <article class="favourite-tool favourite-tool--codex reveal" style="--reveal-delay: 80ms">
+          <div class="favourite-tool__mark" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="presentation">
+              <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M60 15 78 25 78 46 60 56 42 46 42 25Z" />
+                <path d="M99 38 99 59 81 69 63 59 63 38 81 28Z" />
+                <path d="M99 82 81 92 63 82 63 61 81 51 99 61Z" />
+                <path d="M60 105 42 95 42 74 60 64 78 74 78 95Z" />
+                <path d="M21 82 21 61 39 51 57 61 57 82 39 92Z" />
+                <path d="M21 38 39 28 57 38 57 59 39 69 21 59Z" />
+              </g>
+            </svg>
+          </div>
+          <div class="favourite-tool__copy">
+            <span class="favourite-tool__index">02</span>
+            <h3>Codex</h3>
+            <p>My choice for precise codebase work, rapid iteration, testing and carrying complete features through to a verified result.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- Capabilities -->
   <section class="section ai-band">
     <div class="container">
@@ -133,6 +188,107 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
   .ai-intro__title {
     margin-top: 0.75rem;
     max-width: 14ch;
+  }
+
+  .favourites-section {
+    padding-top: 0;
+  }
+  .favourites-head {
+    display: grid;
+    grid-template-columns: 0.75fr 1fr 1.1fr;
+    gap: clamp(1rem, 4vw, 3rem);
+    align-items: end;
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    padding-top: clamp(2rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--line);
+  }
+  .favourites-head .h2 {
+    max-width: 12ch;
+  }
+  .favourites-head > p:last-child {
+    max-width: 48ch;
+  }
+  .favourites-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .favourite-tool {
+    position: relative;
+    isolation: isolate;
+    min-height: 390px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), background 0.35s var(--ease);
+  }
+  .favourite-tool::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    background: radial-gradient(circle at 70% 20%, var(--tool-glow), transparent 52%);
+    transition: opacity 0.35s var(--ease);
+  }
+  .favourite-tool:hover {
+    transform: translateY(-5px);
+    border-color: var(--line-strong);
+  }
+  .favourite-tool:hover::before {
+    opacity: 1;
+  }
+  .favourite-tool--claude {
+    --tool-color: #d6a982;
+    --tool-glow: rgb(214 169 130 / 0.13);
+  }
+  .favourite-tool--codex {
+    --tool-color: var(--color-paper);
+    --tool-glow: rgb(92 235 255 / 0.1);
+  }
+  .favourite-tool__mark {
+    width: clamp(8rem, 18vw, 11.5rem);
+    color: var(--tool-color);
+    transform-origin: top left;
+    transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
+  }
+  .favourite-tool:hover .favourite-tool__mark {
+    transform: rotate(-3deg) scale(1.04);
+    filter: drop-shadow(0 0 22px var(--tool-glow));
+  }
+  .favourite-tool__mark svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .favourite-tool__copy {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.65rem 1rem;
+    align-items: baseline;
+  }
+  .favourite-tool__index {
+    grid-row: 1 / span 2;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+  .favourite-tool h3 {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 560;
+    letter-spacing: -0.035em;
+  }
+  .favourite-tool p {
+    max-width: 46ch;
+    color: var(--muted);
+    font-size: 0.93rem;
   }
 
   .ai-band {
@@ -269,10 +425,30 @@ const capIcons = ['pen', 'sparkles', 'workflow', 'robot'];
     .principles {
       grid-template-columns: 1fr;
     }
+    .favourites-head {
+      grid-template-columns: 1fr 1fr;
+    }
+    .favourites-head > p:last-child {
+      grid-column: 1 / -1;
+    }
   }
   @media (max-width: 520px) {
+    .favourites-head,
+    .favourites-grid {
+      grid-template-columns: 1fr;
+    }
+    .favourite-tool {
+      min-height: 330px;
+    }
     .ai-tools__list {
       grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .favourite-tool,
+    .favourite-tool::before,
+    .favourite-tool__mark {
+      transition: none;
     }
   }
 </style>
