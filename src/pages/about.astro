@@ -66,7 +66,7 @@ const techLogos = [
 
         <section class="tech-showcase" aria-labelledby="about-tech-title">
           <div class="tech-showcase__intro">
-            <p class="tech-showcase__label">Tech &amp; platforms</p>
+            <p class="eyebrow tech-showcase__label">Tech &amp; platforms</p>
             <h2 id="about-tech-title">I work with the <span>tools behind the build.</span></h2>
             <p>
               I choose technology for the job in front of me—combining proven web platforms,
@@ -233,8 +233,8 @@ const techLogos = [
   .tech-showcase {
     margin-top: clamp(2.5rem, 5vw, 4rem);
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(250px, 1.08fr);
-    gap: clamp(1.5rem, 4vw, 3rem);
+    grid-template-columns: minmax(220px, 1fr) minmax(230px, 1fr);
+    gap: clamp(2rem, 4vw, 3rem);
     min-height: 480px;
     overflow: hidden;
     padding: clamp(1.5rem, 3vw, 2.25rem);
@@ -246,24 +246,16 @@ const techLogos = [
     align-self: center;
   }
   .tech-showcase__label {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2rem;
     margin-bottom: 1.75rem;
-    padding: 0.35rem 0.8rem;
-    color: #f4f4f5;
-    border: 1px solid #3b3d42;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    font-weight: 600;
+    color: #8a8f98;
   }
   .tech-showcase__intro h2 {
     color: #56575e;
     font-family: var(--font-display);
-    font-size: clamp(2.2rem, 4.8vw, 4rem);
+    font-size: clamp(1.9rem, 3vw, 2.65rem);
     font-weight: 430;
-    line-height: 0.98;
-    letter-spacing: -0.055em;
+    line-height: 1.03;
+    letter-spacing: -0.045em;
   }
   .tech-showcase__intro h2 span {
     color: #f5f5f6;
@@ -317,7 +309,7 @@ const techLogos = [
   }
   .tech-showcase__item span {
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 4vw, 3.3rem);
+    font-size: clamp(1.5rem, 2.6vw, 2.15rem);
     font-weight: 520;
     line-height: 1;
     letter-spacing: -0.05em;
@@ -581,7 +573,7 @@ const techLogos = [
       border-top: 1px solid #23252a;
     }
     .tech-showcase__item span {
-      font-size: clamp(1.75rem, 9vw, 2.6rem);
+      font-size: clamp(1.55rem, 7vw, 2.15rem);
     }
   }
   @media (prefers-reduced-motion: reduce) {
