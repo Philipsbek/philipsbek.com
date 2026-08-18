@@ -60,46 +60,30 @@ const homeServices = services.slice(0, 4);
 
       <div class="hero__aside reveal" style="--reveal-delay: 200ms" aria-hidden="true">
         <div class="hero-card" data-tilt>
-          <!-- Background FX: a looping video if provided, else an animated canvas -->
-          <div class="hero-card__fx">
-            {site.heroVideo ? (
-              <video
-                class="hero-card__video"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="auto"
-                aria-hidden="true"
-              >
-                <source src={site.heroVideo} type="video/mp4" />
-              </video>
-            ) : (
-              <canvas class="hero-card__canvas" data-hero-fx></canvas>
-            )}
-            <span class="hero-card__scrim"></span>
-            <span class="hero-card__sheen"></span>
-          </div>
-
-          <div class="hero-card__content">
-            <div class="hero-card__avatar">
-              <img src={site.photo} alt="" width="120" height="120" loading="lazy" />
-            </div>
-            <div class="hero-card__lines">
-              <span class="hero-card__name">{site.name}</span>
-              <span class="hero-card__role">Web &amp; WordPress Developer</span>
-            </div>
-            <ul class="hero-card__stack">
-              <li>WordPress</li>
-              <li>Elementor</li>
-              <li>WooCommerce</li>
-              <li>Make.com</li>
-              <li>n8n</li>
-              <li>SEO</li>
-            </ul>
-            <div class="hero-card__foot">
-              <span class="dot"></span> Building from concept to launch
-            </div>
+          <div class="hero-card__grid" aria-hidden="true"></div>
+          <div class="hero-card__deck">
+            <article class="capability-card capability-card--design">
+              <span class="capability-card__number">1.</span>
+              <div class="capability-card__body">
+                <h2>Web<br />Design</h2>
+                <p>Responsive layouts<br />Clear user journeys<br />Polished interfaces</p>
+              </div>
+            </article>
+            <article class="capability-card capability-card--wordpress">
+              <span class="capability-card__number">2.</span>
+              <div class="capability-card__body">
+                <h2>WordPress<br />Development</h2>
+                <p>Elementor builds<br />WooCommerce<br />SEO foundations</p>
+              </div>
+            </article>
+            <article class="capability-card capability-card--automation">
+              <span class="capability-card__number">3.</span>
+              <span class="capability-card__signal"></span>
+              <div class="capability-card__body">
+                <h2>AI<br />Workflows</h2>
+                <p>Make.com &amp; n8n<br />AI-assisted delivery<br />Smarter processes</p>
+              </div>
+            </article>
           </div>
         </div>
       </div>
@@ -324,8 +308,8 @@ const homeServices = services.slice(0, 4);
         const gx = w * (0.5 + Math.cos(t) * 0.3);
         const gy = h * (0.35 + Math.sin(t * 0.8) * 0.25);
         const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(w, h) * 0.7);
-        glow.addColorStop(0, 'rgba(228,242,34,0.05)');
-        glow.addColorStop(1, 'rgba(228,242,34,0)');
+        glow.addColorStop(0, 'rgba(92,235,255,0.05)');
+        glow.addColorStop(1, 'rgba(92,235,255,0)');
         ctx.fillStyle = glow;
         ctx.fillRect(0, 0, w, h);
         for (const p of particles) {
@@ -542,11 +526,11 @@ const homeServices = services.slice(0, 4);
   .hero-card {
     position: relative;
     width: 100%;
-    max-width: 360px;
-    min-height: 340px;
+    max-width: 430px;
+    min-height: 310px;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--color-carbon);
+    border-radius: 12px;
+    background: #d8d1c5;
     box-shadow: var(--shadow-lg);
     overflow: hidden;
     transform-style: preserve-3d;
@@ -556,120 +540,102 @@ const homeServices = services.slice(0, 4);
   }
   .hero-card:hover {
     border-color: var(--color-smoke);
-    box-shadow: var(--shadow-lg), 0 0 44px -10px rgba(92, 235, 255, 0.18);
+    box-shadow: var(--shadow-lg), 0 0 48px -16px rgba(92, 235, 255, 0.22);
   }
 
-  /* Background FX layer */
-  .hero-card__fx {
+  .hero-card__grid {
     position: absolute;
     inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    border-radius: inherit;
+    background-image:
+      linear-gradient(rgba(8, 9, 10, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(8, 9, 10, 0.055) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 75%, transparent);
   }
-  .hero-card__canvas,
-  .hero-card__video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .hero-card__video {
-    object-fit: cover;
-  }
-  .hero-card__scrim {
-    position: absolute;
-    inset: 0;
-    background: var(--card-scrim);
-  }
-  .hero-card__sheen {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      55% 45% at var(--sx, 50%) var(--sy, 0%),
-      rgba(92, 235, 255, 0.11),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.35s var(--ease);
-    pointer-events: none;
-  }
-  .hero-card:hover .hero-card__sheen {
-    opacity: 1;
-  }
-
-  /* Content sits above the FX and pops forward under the 3D tilt */
-  .hero-card__content {
+  .hero-card__deck {
     position: relative;
     z-index: 1;
     display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    padding: 1.75rem;
-    transform: translateZ(28px);
-  }
-  .hero-card__avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    overflow: hidden;
-    background: var(--color-obsidian);
-    border: 1px solid var(--color-graphite);
-  }
-  .hero-card__avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 6%;
-  }
-  .hero-card__lines {
-    display: flex;
-    flex-direction: column;
-  }
-  .hero-card__name {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.15rem;
-  }
-  .hero-card__role {
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-  .hero-card__stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding-top: 1.1rem;
-    border-top: 1px solid var(--glass-border);
-  }
-  .hero-card__stack li {
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--color-mist);
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    padding: 0.3rem 0.6rem;
-    border-radius: 999px;
-    backdrop-filter: blur(4px);
-    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
-  }
-  .hero-card__stack li:hover {
-    background: var(--glass-border);
-    border-color: var(--color-smoke);
-  }
-  .hero-card__foot {
-    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--muted);
+    justify-content: center;
+    min-height: 310px;
+    padding: 2.5rem 1.5rem;
+    transform: translateZ(24px);
   }
-  .hero-card__foot .dot {
-    width: 8px;
-    height: 8px;
+  .capability-card {
+    position: relative;
+    display: flex;
+    flex: 0 0 138px;
+    min-height: 188px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.85rem;
+    color: #08090a;
+    background: #fbfbf8;
+    border: 1px solid rgba(8, 9, 10, 0.16);
+    border-radius: 7px;
+    box-shadow: 0 16px 32px rgba(8, 9, 10, 0.15);
+    transform-origin: 50% 85%;
+    transition: transform 0.4s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.4s var(--ease);
+  }
+  .capability-card + .capability-card {
+    margin-left: -16px;
+  }
+  .capability-card--design {
+    z-index: 1;
+    transform: translateY(8px) rotate(-7deg);
+  }
+  .capability-card--wordpress {
+    z-index: 2;
+    color: #17191c;
+    background: #cbc9c0;
+    transform: translateY(-2px) rotate(1.5deg);
+  }
+  .capability-card--automation {
+    z-index: 3;
+    color: #fff;
+    background: #0b0c0e;
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(10px) rotate(8deg);
+  }
+  .hero-card:hover .capability-card--design {
+    transform: translateX(-10px) translateY(5px) rotate(-9deg);
+  }
+  .hero-card:hover .capability-card--wordpress {
+    transform: translateY(-7px) rotate(0deg);
+  }
+  .hero-card:hover .capability-card--automation {
+    transform: translateX(10px) translateY(7px) rotate(10deg);
+    box-shadow: 0 20px 38px rgba(8, 9, 10, 0.25), 0 0 0 1px var(--accent-border);
+  }
+  .capability-card__number {
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+  .capability-card__body h2 {
+    margin: 0 0 0.7rem;
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 590;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .capability-card__body p {
+    color: inherit;
+    font-size: 0.53rem;
+    line-height: 1.45;
+    opacity: 0.66;
+  }
+  .capability-card__signal {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: var(--accent);
+    box-shadow: 0 0 12px rgba(92, 235, 255, 0.8);
   }
 
   /* Skills strip */
@@ -885,7 +851,28 @@ const homeServices = services.slice(0, 4);
     }
     .hero-card {
       transform: none;
-      max-width: 320px;
+      max-width: 360px;
+    }
+    .hero-card__deck {
+      min-height: 286px;
+      padding-inline: 1rem;
+    }
+    .capability-card {
+      flex-basis: 116px;
+      min-height: 166px;
+      padding: 0.72rem;
+    }
+    .capability-card + .capability-card {
+      margin-left: -10px;
+    }
+    .capability-card__number {
+      font-size: 1.1rem;
+    }
+    .capability-card__body h2 {
+      font-size: 0.85rem;
+    }
+    .capability-card__body p {
+      font-size: 0.48rem;
     }
     .exp-grid {
       grid-template-columns: 1fr;
