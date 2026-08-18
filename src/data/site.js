@@ -248,6 +248,7 @@ export const projects = [
     title: 'AsheTag — Web Design Studio',
     category: 'Agency Website',
     placeholder: false,
+    live: true,
     image: '/projects/ashetag.jpg',
     overview:
       'A conversion-focused website for a Malaysia-based web design studio offering WordPress and Elementor services to SMEs, startups and growing brands.',
@@ -334,6 +335,7 @@ export const projects = [
     title: 'Klinik Pergigian Kita',
     category: 'Business Website',
     placeholder: false,
+    live: true,
     image: '/projects/klinik-pergigian-kita.jpg',
     overview:
       'A modern, trust-building website for a Malaysian dental clinic — clear service listings, real patient testimonials, multiple branches and easy contact.',
@@ -350,6 +352,7 @@ export const projects = [
     title: 'Muheet Oil Refining',
     category: 'Business Website',
     placeholder: false,
+    live: true,
     image: '/projects/muheet-oil-refining.jpg',
     overview:
       'A corporate website for a Libyan oil-refining and refinery-development company — presenting its projects, engineering focus and role in the national energy sector.',

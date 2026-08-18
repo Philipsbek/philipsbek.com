@@ -16,6 +16,7 @@ interface Project {
   title: string;
   category: string;
   placeholder?: boolean;
+  live?: boolean;
   neon?: boolean;
   image?: string;
   overview: string;
@@ -52,7 +53,11 @@ const artKind = artForCategory[project.category] ?? 'default';
 
   <div class="project-body">
     <div class="project-meta">
-      <span class="tag">{project.category}</span>
+      <span class:list={['tag', { 'tag--live': project.live }]}>
+        {project.live && <span class="live-dot" aria-hidden="true"></span>}
+        {project.category}
+        {project.live && <span class="sr-only"> — Live website</span>}
+      </span>
       <span class="project-role">{project.role}</span>
     </div>
     <h3 class="h3 project-title">{project.title}</h3>
@@ -189,6 +194,31 @@ const artKind = artForCategory[project.category] ?? 'default';
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
+  }
+  .tag--live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.48rem;
+  }
+  .live-dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #5ee98a;
+    box-shadow: 0 0 0 2px rgb(94 233 138 / 0.1), 0 0 9px rgb(94 233 138 / 0.75);
+    animation: live-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes live-pulse {
+    50% {
+      opacity: 0.72;
+      box-shadow: 0 0 0 3px rgb(94 233 138 / 0.06), 0 0 5px rgb(94 233 138 / 0.5);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot {
+      animation: none;
+    }
   }
   .project-role {
     font-size: 0.82rem;
