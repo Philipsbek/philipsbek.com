@@ -6,6 +6,13 @@ import ContactCTA from '../components/ContactCTA.astro';
 import { projects, projectCategories } from '../data/site.js';
 
 const showFilters = projects.length >= 4;
+const projectCountByCategory = projects.reduce((counts, project) => {
+  counts[project.category] = (counts[project.category] ?? 0) + 1;
+  return counts;
+}, {});
+
+const getProjectCount = (category) =>
+  category === 'All' ? projects.length : (projectCountByCategory[category] ?? 0);
 ---
 <BaseLayout
   title="Portfolio"
@@ -35,8 +42,10 @@ const showFilters = projects.length >= 4;
               data-filter={cat}
               role="tab"
               aria-selected={i === 0 ? 'true' : 'false'}
+              aria-label={`${cat}: ${getProjectCount(cat)} ${getProjectCount(cat) === 1 ? 'project' : 'projects'}`}
             >
-              {cat}
+              <span>{cat}</span>
+              <span class="filter-btn__count" aria-hidden="true">{getProjectCount(cat)}</span>
             </button>
           ))}
         </div>
@@ -101,6 +110,9 @@ const showFilters = projects.length >= 4;
     margin-bottom: 2rem;
   }
   .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     padding: 0.45rem 1rem;
     font-size: 0.85rem;
     font-weight: 400;
@@ -118,6 +130,29 @@ const showFilters = projects.length >= 4;
     background: var(--color-bone);
     color: var(--color-void);
     border-color: var(--color-bone);
+  }
+  .filter-btn__count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding-inline: 0.3rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    line-height: 1;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .filter-btn:hover .filter-btn__count {
+    color: var(--color-paper);
+    border-color: var(--color-smoke);
+  }
+  .filter-btn.is-active .filter-btn__count {
+    color: var(--color-void);
+    background: rgb(0 0 0 / 0.08);
+    border-color: rgb(0 0 0 / 0.18);
   }
 
   .no-results {
