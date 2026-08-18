@@ -356,7 +356,12 @@ ol {
   box-shadow: rgba(0, 0, 0, 0.1) 0 5px 2px, rgba(0, 0, 0, 0.2) 0 1px 1px;
 }
 .btn--primary:hover {
-  background: var(--accent-hover);
+  background: var(--color-neon-cyan);
+  color: var(--accent-ink);
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0 5px 2px,
+    rgba(0, 0, 0, 0.2) 0 1px 1px,
+    0 0 24px rgba(92, 235, 255, 0.32);
 }
 .btn--ghost {
   background: transparent;
