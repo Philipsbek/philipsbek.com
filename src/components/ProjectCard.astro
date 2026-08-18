@@ -56,7 +56,6 @@ const artKind = artForCategory[project.category] ?? 'default';
       <span class:list={['tag', { 'tag--live': project.live }]}>
         {project.live && <span class="live-dot" aria-hidden="true"></span>}
         {project.category}
-        {project.live && <span class="sr-only"> — Live website</span>}
       </span>
       <span class="project-role">{project.role}</span>
     </div>
@@ -199,6 +198,7 @@ const artKind = artForCategory[project.category] ?? 'default';
     display: inline-flex;
     align-items: center;
     gap: 0.48rem;
+    flex: 0 0 auto;
   }
   .live-dot {
     width: 0.42rem;
@@ -221,8 +221,12 @@ const artKind = artForCategory[project.category] ?? 'default';
     }
   }
   .project-role {
+    min-width: 0;
+    max-width: 55%;
     font-size: 0.82rem;
     color: var(--muted);
+    line-height: 1.4;
+    text-align: right;
   }
   .project-title {
     margin-top: 0.1rem;
