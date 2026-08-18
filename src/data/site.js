@@ -226,6 +226,24 @@ export const services = [
  */
 export const projects = [
   {
+    slug: 'aer-creative-workspace',
+    title: 'AER — Creative Workspace',
+    category: 'AI Product Website',
+    placeholder: false,
+    neon: true,
+    image: '/projects/air.jpg',
+    overview:
+      'An atmospheric product website for an AI creative workspace that organizes brand knowledge, finds approved assets and turns strong ideas into channel-ready campaign variants.',
+    role: 'Design & front-end (built with Codex)',
+    tools: ['Codex', 'Responsive design', 'Interactive prototyping', 'Vercel'],
+    challenge:
+      'Explain a sophisticated creative workflow clearly while keeping the experience calm, visual and approachable.',
+    delivered:
+      'A responsive, multi-section product experience with a cloud-led hero, animated agent workflow, interactive feature tabs and focused calls to action — deployed on Vercel.',
+    url: 'https://design-air.vercel.app/',
+    accent: 'b',
+  },
+  {
     slug: 'cards-against-humanity',
     title: 'Cards Against Humanity',
     category: 'Landing Page',
