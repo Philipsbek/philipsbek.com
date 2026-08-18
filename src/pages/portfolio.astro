@@ -21,7 +21,6 @@ const showFilters = projects.length >= 4;
   <section class="section section--tight">
     <div class="container">
       <div class="legend reveal">
-        <span class="legend__swatch" aria-hidden="true"></span>
         <p class="legend__text">
           <span class="legend__label">Style</span>
           Cards with a soft pastel accent are <strong>design concepts vibe-coded with Claude</strong>. The rest are live client builds.
@@ -57,7 +56,7 @@ const showFilters = projects.length >= 4;
 </BaseLayout>
 
 <style>
-  /* Legend / tip box explaining the pastel "Style" border. */
+  /* Legend / tip box explaining the pastel "Style" accent. */
   .legend {
     display: flex;
     align-items: center;
@@ -67,34 +66,6 @@ const showFilters = projects.length >= 4;
     background: var(--color-carbon);
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
-  }
-  .legend__swatch {
-    position: relative;
-    flex-shrink: 0;
-    width: 40px;
-    height: 26px;
-    border-radius: 6px;
-    background: var(--color-void);
-  }
-  .legend__swatch::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1.5px;
-    background: conic-gradient(
-      from 0deg,
-      #ffc9de,
-      #cfe3ff,
-      #fdf3b0,
-      #d3f3d0,
-      #ffd0e6,
-      #ffc9de
-    );
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
   }
   .legend__text {
     font-size: 0.9rem;
