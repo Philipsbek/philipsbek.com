@@ -11,7 +11,7 @@
   <path fill="#08090a" d="m19.8 20.6 5.7-4.1-2.2 8.2-3.5-4.1Zm24.4 0-5.7-4.1 2.2 8.2 3.5-4.1Z"/>
   <path fill="#161718" d="M22 30c3.1-2.2 6.4-3.3 10-3.3S38.9 27.8 42 30v7.2c-2.4 5.4-5.7 8.1-10 8.1s-7.6-2.7-10-8.1V30Z"/>
   <path fill="#ffffff" d="m32 35.5 3.2 2.4-3.2 3-3.2-3 3.2-2.4Z"/>
-  <circle cx="27" cy="33" r="2" fill="#7dd3fc"/>
-  <circle cx="37" cy="33" r="2" fill="#7dd3fc"/>
+  <circle cx="27" cy="33" r="2" fill="#5cebff"/>
+  <circle cx="37" cy="33" r="2" fill="#5cebff"/>
   <path fill="none" stroke="#62666d" stroke-linecap="round" stroke-width="1.5" d="M25.5 42.5 20 44m18.5-1.5L44 44"/>
 </svg>
