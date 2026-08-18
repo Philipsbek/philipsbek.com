@@ -64,24 +64,26 @@ const techLogos = [
           needs to steer.
         </p>
 
-        <section class="about-tech-wall" aria-labelledby="about-tech-title">
-          <div class="about-tech-wall__head">
-            <p class="eyebrow">My toolkit</p>
-            <h2 id="about-tech-title">Technologies I work with</h2>
+        <section class="tech-showcase" aria-labelledby="about-tech-title">
+          <div class="tech-showcase__intro">
+            <p class="tech-showcase__label">Tech &amp; platforms</p>
+            <h2 id="about-tech-title">I work with the <span>tools behind the build.</span></h2>
+            <p>
+              I choose technology for the job in front of me—combining proven web platforms,
+              automation tools and AI-assisted development to get polished work live.
+            </p>
           </div>
-          <ul class="about-tech-wall__grid">
-            {techLogos.map((tech, i) => (
-              <li
-                class="about-tech-logo"
-                style={`--logo-delay:${i * 25}ms`}
-              >
-                <span class="about-tech-logo__mark">
-                  <img src={tech.icon} alt="" width="32" height="32" loading="lazy" />
-                </span>
-                <span>{tech.name}</span>
-              </li>
-            ))}
-          </ul>
+
+          <div class="tech-showcase__window" aria-label="Technologies and platforms I use">
+            <div class="tech-showcase__rail">
+              {[...techLogos, ...techLogos].map((tech, i) => (
+                <div class="tech-showcase__item" aria-hidden={i >= techLogos.length ? 'true' : undefined}>
+                  <img src={tech.icon} alt="" width="36" height="36" loading="lazy" />
+                  <span>{tech.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
       </div>
       <aside class="about-snapshot reveal" style="--reveal-delay: 100ms">
@@ -228,103 +230,103 @@ const techLogos = [
   .about-intro__text > * + * {
     margin-top: 1.25rem;
   }
-  .about-tech-wall {
+  .tech-showcase {
     margin-top: clamp(2.5rem, 5vw, 4rem);
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--line);
-  }
-  .about-tech-wall__head {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-  }
-  .about-tech-wall__head h2 {
-    max-width: 13ch;
-    color: var(--ink);
-    font-family: var(--font-display);
-    font-size: clamp(1.35rem, 2.3vw, 1.8rem);
-    font-weight: 540;
-    line-height: 1.08;
-    letter-spacing: -0.035em;
-    text-align: right;
-  }
-  .about-tech-wall__grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
+    grid-template-columns: minmax(0, 0.92fr) minmax(250px, 1.08fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    min-height: 480px;
+    overflow: hidden;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: #050506;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
   }
-  .about-tech-logo {
+  .tech-showcase__intro {
+    align-self: center;
+  }
+  .tech-showcase__label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    margin-bottom: 1.75rem;
+    padding: 0.35rem 0.8rem;
+    color: #f4f4f5;
+    border: 1px solid #3b3d42;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+  .tech-showcase__intro h2 {
+    color: #56575e;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4.8vw, 4rem);
+    font-weight: 430;
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+  .tech-showcase__intro h2 span {
+    color: #f5f5f6;
+  }
+  .tech-showcase__intro > p:last-child {
+    max-width: 37ch;
+    margin-top: 1.75rem;
+    color: #8a8b91;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+  .tech-showcase__window {
     position: relative;
-    min-width: 0;
-    min-height: 88px;
+    height: 430px;
+    align-self: center;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+  }
+  .tech-showcase__rail {
     display: flex;
     flex-direction: column;
+    animation: tech-rail 38s linear infinite;
+  }
+  .tech-showcase__window:hover .tech-showcase__rail {
+    animation-play-state: paused;
+  }
+  .tech-showcase__item {
+    height: 76px;
+    flex: 0 0 76px;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.8rem 0.4rem;
-    color: var(--muted);
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    transition: color 0.25s var(--ease), background 0.25s var(--ease);
+    gap: 0.9rem;
+    color: #34353a;
+    transition: color 0.25s var(--ease), transform 0.25s var(--ease);
   }
-  .about-tech-logo::after {
-    content: '';
-    position: absolute;
-    inset: 0.5rem;
-    pointer-events: none;
-    background: radial-gradient(circle, var(--accent-soft), transparent 68%);
-    opacity: 0;
-    transition: opacity 0.25s var(--ease);
+  .tech-showcase__item:nth-child(5n + 3) {
+    color: #f3f3f4;
   }
-  .about-tech-logo:hover {
-    color: var(--ink);
-    background: var(--glass-bg);
+  .tech-showcase__item:hover {
+    color: #ffffff;
+    transform: translateX(8px);
   }
-  .about-tech-logo:hover::after {
-    opacity: 1;
-  }
-  .about-tech-logo__mark {
-    position: relative;
-    z-index: 1;
-    width: 32px;
-    height: 32px;
-    display: grid;
-    place-items: center;
-    transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
-  }
-  .about-tech-logo:hover .about-tech-logo__mark {
-    transform: translateY(-3px) scale(1.06);
-    filter: drop-shadow(0 0 10px var(--accent-soft));
-  }
-  .about-tech-logo img {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
+  .tech-showcase__item img {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
     object-fit: contain;
     filter: grayscale(1) brightness(0) invert(1);
+    opacity: 0.84;
   }
-  .about-tech-logo > span:last-child {
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    max-width: 100%;
-    font-family: var(--font-mono);
-    font-size: 0.67rem;
-    text-overflow: ellipsis;
+  .tech-showcase__item span {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 3.3rem);
+    font-weight: 520;
+    line-height: 1;
+    letter-spacing: -0.05em;
     white-space: nowrap;
   }
-  :global(:root[data-theme='light']) .about-tech-logo {
-    color: #8a8f98;
-    background: #0f1011;
-    border-color: #23252a;
-  }
-  :global(:root[data-theme='light']) .about-tech-logo:hover {
-    color: #ffffff;
-    background: #161718;
+  @keyframes tech-rail {
+    to {
+      transform: translateY(calc(-76px * 15));
+    }
   }
   .about-snapshot {
     display: flex;
@@ -566,19 +568,33 @@ const techLogos = [
       position: static;
     }
   }
-  @media (max-width: 540px) {
-    .about-tech-wall__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+  @media (max-width: 620px) {
+    .tech-showcase {
+      grid-template-columns: 1fr;
+      min-height: 0;
     }
-    .about-tech-logo {
-      min-height: 84px;
+    .tech-showcase__intro h2 {
+      max-width: 11ch;
+    }
+    .tech-showcase__window {
+      height: 320px;
+      border-top: 1px solid #23252a;
+    }
+    .tech-showcase__item span {
+      font-size: clamp(1.75rem, 9vw, 2.6rem);
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .about-tech-logo,
-    .about-tech-logo::after,
-    .about-tech-logo__mark {
+    .tech-showcase__item {
       transition: none;
+    }
+    .tech-showcase__window {
+      overflow-y: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .tech-showcase__rail {
+      animation: none;
     }
   }
 </style>
