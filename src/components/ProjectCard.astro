@@ -95,14 +95,8 @@ const artKind = artForCategory[project.category] ?? 'default';
     border-color: var(--line-strong);
   }
 
-  /* Thin rainbow border — all colours shown at once (opt-in via `neon: true`).
-     A slim gradient ring that follows the card's rounded corners. */
-  .project-card--neon {
-    border-color: transparent;
-  }
-  .project-card--neon:hover {
-    border-color: transparent;
-  }
+  /* Soft pastel gradient border shown only on hover (opt-in via `neon: true`).
+     The card keeps the default hairline border at rest. */
   .project-card--neon::before {
     content: '';
     position: absolute;
@@ -124,6 +118,11 @@ const artKind = artForCategory[project.category] ?? 'default';
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+  }
+  .project-card--neon:hover::before {
+    opacity: 1;
   }
   /* Soft pastel gradient on the category tag, with dark text for contrast. */
   .project-card--neon .project-meta .tag {
