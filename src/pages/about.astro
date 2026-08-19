@@ -268,8 +268,28 @@ const techLogos = [
     height: 430px;
     align-self: center;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
-    mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 0.12) 16%,
+      rgb(0 0 0 / 0.42) 34%,
+      #000 46%,
+      #000 54%,
+      rgb(0 0 0 / 0.42) 66%,
+      rgb(0 0 0 / 0.12) 84%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 0.12) 16%,
+      rgb(0 0 0 / 0.42) 34%,
+      #000 46%,
+      #000 54%,
+      rgb(0 0 0 / 0.42) 66%,
+      rgb(0 0 0 / 0.12) 84%,
+      transparent 100%
+    );
   }
   .tech-showcase__rail {
     display: flex;
@@ -285,11 +305,8 @@ const techLogos = [
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    color: #34353a;
+    color: #ffffff;
     transition: color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .tech-showcase__item:nth-child(5n + 3) {
-    color: #f3f3f4;
   }
   .tech-showcase__item:hover {
     color: #ffffff;
