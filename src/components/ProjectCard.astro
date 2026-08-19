@@ -55,7 +55,7 @@ const artKind = artForCategory[project.category] ?? 'default';
     <div class="project-meta">
       <span class:list={['tag', { 'tag--live': project.live }]}>
         {project.live && <span class="live-dot" aria-hidden="true"></span>}
-        {project.category}
+        {project.neon ? 'Style' : project.category}
       </span>
       <span class="project-role">{project.role}</span>
     </div>
