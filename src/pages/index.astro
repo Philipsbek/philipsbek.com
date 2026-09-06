@@ -126,6 +126,60 @@ const homeServices = services.slice(0, 4);
     </div>
   </section>
 
+  <!-- CURRENTLY BUILDING -->
+  <section class="section building-band">
+    <div class="container">
+      <div class="building">
+        <div class="building__text reveal">
+          <p class="eyebrow building__eyebrow">
+            <span class="building__pulse" aria-hidden="true"></span> Currently building
+          </p>
+          <h2 class="h2 building__title">Stackceipt</h2>
+          <p class="building__tagline">Software subscription governance for SMBs.</p>
+          <p class="building__desc">
+            One calm, financially precise place to track every subscription, renewal, approval and
+            review — and cut the cost of tools a team no longer needs. I’m designing and building it
+            end to end.
+          </p>
+          <ul class="building__points">
+            <li>Live spend, renewals &amp; savings dashboard</li>
+            <li>“Janitor” findings that flag unused seats &amp; waste</li>
+            <li>Requests, reviews &amp; offboarding workflows</li>
+          </ul>
+          <ul class="building__tags" aria-label="Project focus">
+            <li class="tag">SaaS product</li>
+            <li class="tag">Product design</li>
+            <li class="tag">Dashboard UI</li>
+            <li class="tag">Finance &amp; ops</li>
+          </ul>
+          <div class="building__actions">
+            <a
+              class="btn btn--primary"
+              href="https://stackceipt-beta.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit live site <Icon name="arrow-up-right" />
+            </a>
+            <span class="building__status">In active development</span>
+          </div>
+        </div>
+
+        <div class="building__visual reveal" style="--reveal-delay: 120ms">
+          <div class="building__frame">
+            <img
+              src="/projects/stackceipt.jpg"
+              alt="Stackceipt dashboard showing monthly recurring spend, subscriptions and automated savings findings"
+              width="1680"
+              height="1092"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICES OVERVIEW -->
   <section class="section section--tight services-band">
     <div class="container">
@@ -703,6 +757,157 @@ const homeServices = services.slice(0, 4);
   .section-head-row .link-arrow {
     white-space: nowrap;
     padding-bottom: 0.4rem;
+  }
+
+  /* Currently building spotlight */
+  .building-band {
+    position: relative;
+    overflow: hidden;
+  }
+  .building {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+  .building__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .building__pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-neon-cyan);
+    box-shadow: 0 0 0 4px rgba(92, 235, 255, 0.16), 0 0 10px rgba(92, 235, 255, 0.8);
+    animation: building-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes building-pulse {
+    50% {
+      opacity: 0.6;
+      box-shadow: 0 0 0 5px rgba(92, 235, 255, 0.06), 0 0 5px rgba(92, 235, 255, 0.5);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .building__pulse {
+      animation: none;
+    }
+  }
+  .building__title {
+    margin: 0.85rem 0 0.35rem;
+  }
+  .building__tagline {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+  }
+  .building__desc {
+    margin-top: 0.9rem;
+    max-width: 46ch;
+    color: var(--muted);
+  }
+  .building__points {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  .building__points li {
+    position: relative;
+    padding-left: 1.55rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .building__points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+  .building__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.6rem;
+  }
+  .building__tags .tag {
+    font-size: 0.76rem;
+    padding: 0.28rem 0.6rem;
+  }
+  .building__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1.85rem;
+  }
+  .building__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .building__status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-pulse-green);
+    box-shadow: 0 0 0 4px rgba(39, 166, 68, 0.18);
+  }
+  .building__visual {
+    position: relative;
+  }
+  /* soft accent glow behind the product shot */
+  .building__visual::before {
+    content: '';
+    position: absolute;
+    inset: -12% -8% -18% -4%;
+    z-index: 0;
+    background: radial-gradient(60% 60% at 70% 25%, rgba(92, 235, 255, 0.16), transparent 70%);
+    filter: blur(10px);
+    pointer-events: none;
+  }
+  .building__frame {
+    position: relative;
+    z-index: 1;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #0b0c0e;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .building__frame:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent-border);
+  }
+  .building__frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .building__frame {
+      transition: none;
+    }
+  }
+  @media (max-width: 880px) {
+    .building {
+      grid-template-columns: 1fr;
+    }
+    .building__visual {
+      order: -1;
+    }
   }
 
   /* Services band */
