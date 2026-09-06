@@ -17,7 +17,10 @@
   --color-mist: #d0d6e0;
   --color-bone: #e5e5e6;
   --color-paper: #ffffff;
-  --color-neon-cyan: #5cebff;
+  --color-accent-cyan: #87f6f5;
+  --color-accent-pink: #ffe5f1;
+  --color-accent-magenta: #f042ff;
+  --color-neon-cyan: #f042ff; /* solid accent (name kept for legacy refs) */
   --color-pulse-green: #27a644;
   --color-coral-red: #eb5757;
   --color-signal-teal: #02b8cc;
@@ -36,10 +39,17 @@
   --line-strong: var(--color-smoke); /* higher-contrast edges */
 
   --accent: var(--color-neon-cyan);
-  --accent-hover: #b8f8ff;
+  --accent-hover: #f877ff;
   --accent-ink: #08090a;
-  --accent-soft: rgba(92, 235, 255, 0.10);
-  --accent-border: rgba(92, 235, 255, 0.30);
+  --accent-soft: rgba(240, 66, 255, 0.10);
+  --accent-border: rgba(240, 66, 255, 0.30);
+  /* Horizontal cyan → magenta gradient for prominent accent surfaces. */
+  --accent-gradient: linear-gradient(
+    90deg,
+    var(--color-accent-cyan) 0%,
+    var(--color-accent-pink) 48%,
+    var(--color-accent-magenta) 100%
+  );
 
   /* "chip" surfaces for icon tiles etc. */
   --chip-bg: rgba(255, 255, 255, 0.03);
@@ -97,7 +107,7 @@
   --color-bone: #1f2530;
   --color-paper: #0b0d11;
 
-  --accent-hover: #22d3ee;
+  --accent-hover: #c81fd6;
   --navy-line: rgba(0, 0, 0, 0.08);
 
   --chip-bg: rgba(15, 20, 28, 0.04);
@@ -229,7 +239,7 @@ ol {
   left: 1rem;
   top: -100px;
   z-index: 1000;
-  background: var(--color-neon-cyan);
+  background: var(--accent-gradient);
   color: var(--accent-ink);
   padding: 0.65rem 1rem;
   border-radius: 6px;
@@ -351,17 +361,18 @@ ol {
   height: 1.02em;
 }
 .btn--primary {
-  background: var(--color-neon-cyan);
+  background: var(--accent-gradient);
   color: var(--accent-ink);
   box-shadow: rgba(0, 0, 0, 0.1) 0 5px 2px, rgba(0, 0, 0, 0.2) 0 1px 1px;
 }
 .btn--primary:hover {
-  background: var(--color-neon-cyan);
+  background: var(--accent-gradient);
   color: var(--accent-ink);
+  filter: brightness(1.06);
   box-shadow:
     rgba(0, 0, 0, 0.1) 0 5px 2px,
     rgba(0, 0, 0, 0.2) 0 1px 1px,
-    0 0 24px rgba(92, 235, 255, 0.32);
+    0 0 24px rgba(240, 66, 255, 0.32);
 }
 .btn--ghost {
   background: transparent;
@@ -579,7 +590,7 @@ ol {
   right: 0;
   height: 2px;
   z-index: 200;
-  background: var(--color-neon-cyan);
+  background: var(--accent-gradient);
   transform: scaleX(var(--p, 0));
   transform-origin: 0 50%;
   pointer-events: none;

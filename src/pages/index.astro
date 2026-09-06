@@ -19,9 +19,16 @@ const homeServices = services.slice(0, 4);
   <section class="hero">
     <div class="hero__decor" aria-hidden="true">
       <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="330" cy="150" r="150" stroke="var(--accent)" stroke-width="1.4" opacity="0.16" />
-        <circle cx="330" cy="150" r="112" stroke="var(--accent)" stroke-width="1.4" opacity="0.12" />
-        <circle cx="330" cy="150" r="74" stroke="var(--accent)" stroke-width="1.4" opacity="0.09" />
+        <defs>
+          <linearGradient id="pbAccent" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#87f6f5" />
+            <stop offset="0.5" stop-color="#ffe5f1" />
+            <stop offset="1" stop-color="#f042ff" />
+          </linearGradient>
+        </defs>
+        <circle cx="330" cy="150" r="150" stroke="url(#pbAccent)" stroke-width="1.4" opacity="0.16" />
+        <circle cx="330" cy="150" r="112" stroke="url(#pbAccent)" stroke-width="1.4" opacity="0.12" />
+        <circle cx="330" cy="150" r="74" stroke="url(#pbAccent)" stroke-width="1.4" opacity="0.09" />
         <g fill="var(--ink)" opacity="0.06">
           {Array.from({ length: 6 }).map((_, r) =>
             Array.from({ length: 6 }).map((_, c) => (
@@ -321,7 +328,7 @@ const homeServices = services.slice(0, 4);
     if (canvas) {
       const host = canvas.parentElement as HTMLElement;
       const ctx = canvas.getContext('2d');
-      const ACCENT = [92, 235, 255];
+      const ACCENT = [240, 66, 255];
       let w = 0, h = 0, dpr = 1, raf = 0;
       let particles: { x: number; y: number; vx: number; vy: number }[] = [];
       const pointer = { x: -999, y: -999 };
@@ -360,8 +367,8 @@ const homeServices = services.slice(0, 4);
         const gx = w * (0.5 + Math.cos(t) * 0.3);
         const gy = h * (0.35 + Math.sin(t * 0.8) * 0.25);
         const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(w, h) * 0.7);
-        glow.addColorStop(0, 'rgba(92,235,255,0.05)');
-        glow.addColorStop(1, 'rgba(92,235,255,0)');
+        glow.addColorStop(0, 'rgba(240,66,255,0.05)');
+        glow.addColorStop(1, 'rgba(240,66,255,0)');
         ctx.fillStyle = glow;
         ctx.fillRect(0, 0, w, h);
         for (const p of particles) {
@@ -520,7 +527,7 @@ const homeServices = services.slice(0, 4);
     bottom: 0.02em;
     height: 3px;
     border-radius: 3px;
-    background: var(--color-neon-cyan);
+    background: var(--accent-gradient);
     opacity: 0.85;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -670,7 +677,7 @@ const homeServices = services.slice(0, 4);
     height: 7px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 12px rgba(92, 235, 255, 0.8);
+    box-shadow: 0 0 12px rgba(240, 66, 255, 0.8);
   }
 
   /* Skills strip */
@@ -780,13 +787,13 @@ const homeServices = services.slice(0, 4);
     height: 8px;
     border-radius: 50%;
     background: var(--color-neon-cyan);
-    box-shadow: 0 0 0 4px rgba(92, 235, 255, 0.16), 0 0 10px rgba(92, 235, 255, 0.8);
+    box-shadow: 0 0 0 4px rgba(240, 66, 255, 0.16), 0 0 10px rgba(240, 66, 255, 0.8);
     animation: building-pulse 2.4s ease-in-out infinite;
   }
   @keyframes building-pulse {
     50% {
       opacity: 0.6;
-      box-shadow: 0 0 0 5px rgba(92, 235, 255, 0.06), 0 0 5px rgba(92, 235, 255, 0.5);
+      box-shadow: 0 0 0 5px rgba(240, 66, 255, 0.06), 0 0 5px rgba(240, 66, 255, 0.5);
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -872,7 +879,7 @@ const homeServices = services.slice(0, 4);
     position: absolute;
     inset: -6% -4% -8% -4%;
     z-index: 0;
-    background: radial-gradient(58% 55% at 62% 32%, rgba(92, 235, 255, 0.14), transparent 72%);
+    background: radial-gradient(58% 55% at 62% 32%, rgba(240, 66, 255, 0.14), transparent 72%);
     filter: blur(14px);
     pointer-events: none;
   }
