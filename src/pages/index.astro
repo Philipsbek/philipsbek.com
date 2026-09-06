@@ -166,15 +166,14 @@ const homeServices = services.slice(0, 4);
         </div>
 
         <div class="building__visual reveal" style="--reveal-delay: 120ms">
-          <div class="building__frame">
-            <img
-              src="/projects/stackceipt.jpg"
-              alt="Stackceipt dashboard showing monthly recurring spend, subscriptions and automated savings findings"
-              width="1680"
-              height="1092"
-              loading="lazy"
-            />
-          </div>
+          <img
+            class="building__shot"
+            src="/projects/stackceipt-cards.png"
+            alt="Stackceipt interface cards: monthly recurring spend, subscription list, automated savings findings and an upcoming renewal notice"
+            width="1300"
+            height="1257"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
@@ -867,37 +866,29 @@ const homeServices = services.slice(0, 4);
   .building__visual {
     position: relative;
   }
-  /* soft accent glow behind the product shot */
+  /* soft accent glow behind the floating cards */
   .building__visual::before {
     content: '';
     position: absolute;
-    inset: -12% -8% -18% -4%;
+    inset: -6% -4% -8% -4%;
     z-index: 0;
-    background: radial-gradient(60% 60% at 70% 25%, rgba(92, 235, 255, 0.16), transparent 70%);
-    filter: blur(10px);
+    background: radial-gradient(58% 55% at 62% 32%, rgba(92, 235, 255, 0.14), transparent 72%);
+    filter: blur(14px);
     pointer-events: none;
   }
-  .building__frame {
+  .building__shot {
     position: relative;
     z-index: 1;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: #0b0c0e;
-    box-shadow: var(--shadow-lg);
-    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
-  }
-  .building__frame:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent-border);
-  }
-  .building__frame img {
     display: block;
     width: 100%;
     height: auto;
+    transition: transform 0.4s var(--ease);
+  }
+  .building__visual:hover .building__shot {
+    transform: translateY(-4px);
   }
   @media (prefers-reduced-motion: reduce) {
-    .building__frame {
+    .building__shot {
       transition: none;
     }
   }
