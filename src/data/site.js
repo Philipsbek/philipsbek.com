@@ -233,8 +233,8 @@ export const projects = [
     image: '/projects/stackceipt-mvp.jpg',
     overview:
       'A subscription-governance web app that gives finance & ops teams one calm, financially precise place to track every software subscription, renewal, approval and review — and cut the cost of tools they no longer need.',
-    role: 'Design & full build (with Claude Code)',
-    tools: ['Claude Code', 'Product design', 'Dashboard UI', 'Vercel'],
+    role: 'Design & full build (with Claude Code & Codex)',
+    tools: ['Claude Code', 'Codex', 'Dashboard UI', 'Vercel'],
     challenge:
       'Give SMBs a single source of truth for software spend — surfacing renewals, unused seats and duplicate tools before they quietly auto-renew.',
     delivered:
